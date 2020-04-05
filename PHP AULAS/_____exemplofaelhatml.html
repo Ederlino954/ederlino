@@ -1,0 +1,1264 @@
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt-br" lang="pt-br">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Aluno Online</title>
+<link rel="stylesheet" type="text/css" href="aonline.css">
+<script type="text/javascript" src="../jquery/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="../jquery/jquery.blockUI.js"></script>
+<script type="text/javascript" src="../jquery/jquery.history.js"></script>
+<script type="text/javascript" src="../lib/shortcut.js"></script>
+<script language="Javascript"> 
+
+// Leo Paixão - 30/09/2009	## INICIO
+// jQuery que realiza um logoff reabrindo a página de login do navegador forçando a geração da auditoria.
+// Events: Pelo X do navegador, X da guia ou por alt+f4.
+
+var iX, iY, sClicouBtnSubmit;
+    $(document).ready(function(){
+    
+				   var NomePagina = window.location.toString();
+				   var sNomePageQuebrado = NomePagina.split('/');
+				   NomePagina = sNomePageQuebrado[sNomePageQuebrado.length-1];
+				   
+				   if (NomePagina != "incluir_disc_ng.asp") {
+                   
+						$(document).bind("contextmenu",function(e){ 
+								return false; 
+						}); 
+                   
+						if ($.browser.msie) {
+								$("body").attr("onunload","fechar2();");
+								$("input").mouseover(function(){
+									$("body").removeAttr('onunload','');
+								}).mouseout(function(){
+									$("body").attr("onunload","fechar2();");
+								});
+								$("button").hover(function () {
+									$("body").removeAttr('onunload','');
+								});
+						}
+						$("a").click(function()   {
+						     $("body").removeAttr('onunload','');
+						});
+						$("select").click(function () {
+								$("body").removeAttr('onunload','');
+						}); 
+				   
+						$("button").mouseover(function(){
+							     $("body").removeAttr('onunload','');
+							}).mouseout(function(){
+								$("body").attr("onunload","fechar2();");
+						});
+				   
+						$("radio").mouseover(function(){
+							     $("body").removeAttr('onunload','');
+							}).mouseout(function(){
+								$("body").attr("onunload","fechar2();");
+						});
+				   
+						$("body").click(function(event) {
+                   
+								sClicouBtnSubmit = false;
+								//Zerando o onunload caso tenha clicado no botão Submit de FORM.
+								$("form input").click(function() { 
+									sClicouBtnSubmit = true;
+									$("body").removeAttr('onunload','');  
+								}); 
+								
+								$("input[type='text']").change( function() {
+									$("body").removeAttr('onunload','');  
+								}); 
+								
+								$("form").submit(function() { 
+									$("body").removeAttr('onunload','');  
+								}); 
+								
+								// Posição para Firefox!
+								if (! $.browser.msie) {
+									iX = mouseX(event);
+								    iY = mouseY(event);
+								}
+								
+								//Utilizado para caso seja clicado em um link que abra um pop-up
+								//o onunload da página pai é recolocado pra executar o fechar2.
+								if (sClicouBtnSubmit == false) {
+									setTimeout("ReatribuiandoPosPopup();",1200); 
+								}
+								
+						}); 
+                   
+                   }
+                   else
+                   {
+						$("body").removeAttr('onunload','');
+                   }
+                   
+    });
+                
+    shortcut.add("F5",function() {
+                   $("body").removeAttr('onunload','');
+                   history.go(0); // Fica na mesma página!
+                   return false;
+    });
+    
+    shortcut.add("ctrl+F5",function() {
+	    $("body").removeAttr('onunload','');
+	    history.go(0); // Fica na mesma página!
+	    return false;
+	});
+                
+    shortcut.add("Backspace",function() {
+		$("body").removeAttr('onunload','');
+		history.go(-1); // Volta uma página!
+		return false;
+	},{
+		'type':'keydown',
+		'target':document,
+		'disable_in_input':true
+	});
+
+    $(window).bind("beforeunload", function () {
+                   
+                   
+                   var NomePagina = window.location.toString();
+				   var sNomePageQuebrado = NomePagina.split('/');
+				   NomePagina = sNomePageQuebrado[sNomePageQuebrado.length-1];
+				   
+				   if (NomePagina != "incluir_disc_ng.asp") {
+                   
+						// Descobrindo se o click veio do X do nevagador ou do "Go back"
+						// Se o valor for menor que 200 então veio do "go back", limpando o onlunload.
+						if ($.browser.msie) {
+								// Posição para IE!
+								iX = window.event.clientX;
+								iY = window.event.clientY;
+						}
+                   
+						// Para teste!
+						//alert(iX + " - " + iY + " - " + $("body").attr("onunload") + " - " + window.event);
+						// self.document.activeElement != "[object HTMLBodyElement]"
+                   
+						if ( (iX < 200) || (isNaN(iX) && isNaN(iY)) ) {
+								$("body").removeAttr('onunload','');
+						}
+						else
+						{
+								if ( (window.length != 0) && ($("body").attr("onunload") != "" && $("body").attr("onunload") != null) && ($.browser.msie)) {
+								                if ((iY <= 0) || (iY > 0 && iX > 0) ) {
+								                            //   window.open("logoff.asp", "_blank");
+								                }
+								}
+						}
+						
+				  }
+				  else
+                  {
+						$("body").removeAttr('onunload','');
+                  }
+						
+    } ); 
+                
+
+function ReatribuiandoPosPopup() {
+	//if (window.opener == "[object Window]") {
+	//	$("body").attr("onunload","fechar2();");
+	//}
+}
+
+function mouseX(evt) {
+                if (evt.pageX) return evt.pageX;
+                else if (evt.clientX)
+                return evt.clientX + (document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft);
+                else return null;
+}
+
+function mouseY(evt) {
+                if (evt.pageY) return evt.pageY;
+                else if (evt.clientY)
+                return evt.clientY + (document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop); 
+                else return null;
+}
+
+function fechar2() {
+	//window.open("logoff.asp", "_blank");
+}
+
+// Leo Paixão - 30/09/2009	## FIM
+// jQuery que realiza um logoff reabrindo a página de login do navegador forçando a geração da auditoria.
+// Events: Pelo X do navegador, X da guia ou por alt+f4.
+
+function hideElement(id) {
+	if(document.getElementById)
+	{
+	document.getElementById(id).style.display='none';
+	}
+}
+
+function showElement(id) {
+	if(document.getElementById)
+	{
+	document.getElementById(id).style.display='block';
+	}
+}
+
+function hideAll(VemDaonde) {
+	if (VemDaonde == "PosGraduacao") {
+		var ids = new Array('orientadores', 'proficiencia', 'qualificacao', 'defesa', 'ocorrencias', 'tcc');
+	}
+	else
+	{
+		var ids = new Array('dados_gerais', 'dados_trabalho', 'upload');
+	}
+	
+	for(var i=0;i<ids.length;i++) {
+		if(document.getElementById)
+		{
+		hideElement(ids[i]);
+		}
+	}
+}
+
+function Atualiza_divs_e_menu_divs(id, qual_menu, classeOn, classeOff) {
+	hideAll('PosGraduacao');
+	showElement(id);
+	
+	switch	(qual_menu) {
+			case 'Menu1':
+				
+				//Com Foco
+				document.getElementById('Menu1').style.fontFamily= "verdana";
+				document.getElementById('Menu1').style.fontSize= "9px";
+				document.getElementById('Menu1').style.fontStyle= "normal";
+				document.getElementById('Menu1').style.fontWeight= "bold";
+				document.getElementById('Menu1').style.fontVariant= "normal";
+				document.getElementById('Menu1').style.color= "#00008b";
+				document.getElementById('Menu1').style.backgroundColor= "#ffcc00";
+				
+				//Sem foco
+				document.getElementById('Menu2').style.fontFamily= "verdana";
+				document.getElementById('Menu3').style.fontFamily= "verdana";
+				document.getElementById('Menu4').style.fontFamily= "verdana";
+				document.getElementById('Menu5').style.fontFamily= "verdana";
+				document.getElementById('Menu6').style.fontFamily= "verdana";
+				
+				document.getElementById('Menu2').style.fontSize= "9px";
+				document.getElementById('Menu3').style.fontSize= "9px";
+				document.getElementById('Menu4').style.fontSize= "9px";
+				document.getElementById('Menu5').style.fontSize= "9px";
+				document.getElementById('Menu6').style.fontSize= "9px";
+				
+				document.getElementById('Menu2').style.color= "#00008b";
+				document.getElementById('Menu3').style.color= "#00008b";
+				document.getElementById('Menu4').style.color= "#00008b";
+				document.getElementById('Menu5').style.color= "#00008b";
+				document.getElementById('Menu6').style.color= "#00008b";
+				
+				document.getElementById('Menu2').style.backgroundColor= "#ffffff";
+				document.getElementById('Menu3').style.backgroundColor= "#ffffff";
+				document.getElementById('Menu4').style.backgroundColor= "#ffffff";
+				document.getElementById('Menu5').style.backgroundColor= "#ffffff";
+				document.getElementById('Menu6').style.backgroundColor= "#ffffff";
+				
+				document.getElementById('Menu2').style.fontWeight= "normal";
+				document.getElementById('Menu3').style.fontWeight= "normal";
+				document.getElementById('Menu4').style.fontWeight= "normal";
+				document.getElementById('Menu5').style.fontWeight= "normal";
+				document.getElementById('Menu6').style.fontWeight= "normal";
+				
+				break;
+			case 'Menu2':
+				
+				//Com Foco
+				document.getElementById('Menu2').style.fontFamily= "verdana";
+				document.getElementById('Menu2').style.fontSize= "9px";
+				document.getElementById('Menu2').style.fontStyle= "normal";
+				document.getElementById('Menu2').style.fontWeight= "bold";
+				document.getElementById('Menu2').style.fontVariant= "normal";
+				document.getElementById('Menu2').style.color= "#00008b";
+				document.getElementById('Menu2').style.backgroundColor= "#ffcc00";
+				
+				//Sem foco
+				document.getElementById('Menu1').style.fontFamily= "verdana";
+				document.getElementById('Menu3').style.fontFamily= "verdana";
+				document.getElementById('Menu4').style.fontFamily= "verdana";
+				document.getElementById('Menu5').style.fontFamily= "verdana";
+				document.getElementById('Menu6').style.fontFamily= "verdana";
+				
+				document.getElementById('Menu1').style.fontSize= "9px";
+				document.getElementById('Menu3').style.fontSize= "9px";
+				document.getElementById('Menu4').style.fontSize= "9px";
+				document.getElementById('Menu5').style.fontSize= "9px";
+				document.getElementById('Menu6').style.fontSize= "9px";
+				
+				document.getElementById('Menu1').style.color= "#00008b";
+				document.getElementById('Menu3').style.color= "#00008b";
+				document.getElementById('Menu4').style.color= "#00008b";
+				document.getElementById('Menu5').style.color= "#00008b";
+				document.getElementById('Menu6').style.color= "#00008b";
+				
+				document.getElementById('Menu1').style.backgroundColor= "#ffffff";
+				document.getElementById('Menu3').style.backgroundColor= "#ffffff";
+				document.getElementById('Menu4').style.backgroundColor= "#ffffff";
+				document.getElementById('Menu5').style.backgroundColor= "#ffffff";
+				document.getElementById('Menu6').style.backgroundColor= "#ffffff";
+				
+				document.getElementById('Menu1').style.fontWeight= "normal";
+				document.getElementById('Menu3').style.fontWeight= "normal";
+				document.getElementById('Menu4').style.fontWeight= "normal";
+				document.getElementById('Menu5').style.fontWeight= "normal";
+				document.getElementById('Menu6').style.fontWeight= "normal";
+				
+				break;
+			case 'Menu3':
+				
+				//Com Foco
+				document.getElementById('Menu3').style.fontFamily= "verdana";
+				document.getElementById('Menu3').style.fontSize= "9px";
+				document.getElementById('Menu3').style.fontStyle= "normal";
+				document.getElementById('Menu3').style.fontWeight= "bold";
+				document.getElementById('Menu3').style.fontVariant= "normal";
+				document.getElementById('Menu3').style.color= "#00008b";
+				document.getElementById('Menu3').style.backgroundColor= "#ffcc00";
+				
+				//Sem foco
+				document.getElementById('Menu2').style.fontFamily= "verdana";
+				document.getElementById('Menu1').style.fontFamily= "verdana";
+				document.getElementById('Menu4').style.fontFamily= "verdana";
+				document.getElementById('Menu5').style.fontFamily= "verdana";
+				document.getElementById('Menu6').style.fontFamily= "verdana";
+				
+				document.getElementById('Menu2').style.fontSize= "9px";
+				document.getElementById('Menu1').style.fontSize= "9px";
+				document.getElementById('Menu4').style.fontSize= "9px";
+				document.getElementById('Menu5').style.fontSize= "9px";
+				document.getElementById('Menu6').style.fontSize= "9px";
+				
+				document.getElementById('Menu2').style.color= "#00008b";
+				document.getElementById('Menu1').style.color= "#00008b";
+				document.getElementById('Menu4').style.color= "#00008b";
+				document.getElementById('Menu5').style.color= "#00008b";
+				document.getElementById('Menu6').style.color= "#00008b";
+				
+				document.getElementById('Menu2').style.backgroundColor= "#ffffff";
+				document.getElementById('Menu1').style.backgroundColor= "#ffffff";
+				document.getElementById('Menu4').style.backgroundColor= "#ffffff";
+				document.getElementById('Menu5').style.backgroundColor= "#ffffff";
+				document.getElementById('Menu6').style.backgroundColor= "#ffffff";
+				
+				document.getElementById('Menu2').style.fontWeight= "normal";
+				document.getElementById('Menu1').style.fontWeight= "normal";
+				document.getElementById('Menu4').style.fontWeight= "normal";
+				document.getElementById('Menu5').style.fontWeight= "normal";
+				document.getElementById('Menu6').style.fontWeight= "normal";
+				
+				break;
+			case 'Menu4':
+				
+				//Com Foco
+				document.getElementById('Menu4').style.fontFamily= "verdana";
+				document.getElementById('Menu4').style.fontSize= "9px";
+				document.getElementById('Menu4').style.fontStyle= "normal";
+				document.getElementById('Menu4').style.fontWeight= "bold";
+				document.getElementById('Menu4').style.fontVariant= "normal";
+				document.getElementById('Menu4').style.color= "#00008b";
+				document.getElementById('Menu4').style.backgroundColor= "#ffcc00";
+				
+				//Sem foco
+				document.getElementById('Menu2').style.fontFamily= "verdana";
+				document.getElementById('Menu3').style.fontFamily= "verdana";
+				document.getElementById('Menu1').style.fontFamily= "verdana";
+				document.getElementById('Menu5').style.fontFamily= "verdana";
+				document.getElementById('Menu6').style.fontFamily= "verdana";
+				
+				document.getElementById('Menu2').style.fontSize= "9px";
+				document.getElementById('Menu3').style.fontSize= "9px";
+				document.getElementById('Menu1').style.fontSize= "9px";
+				document.getElementById('Menu5').style.fontSize= "9px";
+				document.getElementById('Menu6').style.fontSize= "9px";
+				
+				document.getElementById('Menu2').style.color= "#00008b";
+				document.getElementById('Menu3').style.color= "#00008b";
+				document.getElementById('Menu1').style.color= "#00008b";
+				document.getElementById('Menu5').style.color= "#00008b";
+				document.getElementById('Menu6').style.color= "#00008b";
+				
+				document.getElementById('Menu2').style.backgroundColor= "#ffffff";
+				document.getElementById('Menu3').style.backgroundColor= "#ffffff";
+				document.getElementById('Menu1').style.backgroundColor= "#ffffff";
+				document.getElementById('Menu5').style.backgroundColor= "#ffffff";
+				document.getElementById('Menu6').style.backgroundColor= "#ffffff";
+				
+				document.getElementById('Menu2').style.fontWeight= "normal";
+				document.getElementById('Menu3').style.fontWeight= "normal";
+				document.getElementById('Menu1').style.fontWeight= "normal";
+				document.getElementById('Menu5').style.fontWeight= "normal";
+				document.getElementById('Menu6').style.fontWeight= "normal";
+				
+				break;
+			case 'Menu5':
+				
+				//Com Foco
+				document.getElementById('Menu5').style.fontFamily= "verdana";
+				document.getElementById('Menu5').style.fontSize= "9px";
+				document.getElementById('Menu5').style.fontStyle= "normal";
+				document.getElementById('Menu5').style.fontWeight= "bold";
+				document.getElementById('Menu5').style.fontVariant= "normal";
+				document.getElementById('Menu5').style.color= "#00008b";
+				document.getElementById('Menu5').style.backgroundColor= "#ffcc00";
+				
+				//Sem foco
+				document.getElementById('Menu2').style.fontFamily= "verdana";
+				document.getElementById('Menu3').style.fontFamily= "verdana";
+				document.getElementById('Menu4').style.fontFamily= "verdana";
+				document.getElementById('Menu1').style.fontFamily= "verdana";
+				document.getElementById('Menu6').style.fontFamily= "verdana";
+				
+				document.getElementById('Menu2').style.fontSize= "9px";
+				document.getElementById('Menu3').style.fontSize= "9px";
+				document.getElementById('Menu4').style.fontSize= "9px";
+				document.getElementById('Menu1').style.fontSize= "9px";
+				document.getElementById('Menu6').style.fontSize= "9px";
+				
+				document.getElementById('Menu2').style.color= "#00008b";
+				document.getElementById('Menu3').style.color= "#00008b";
+				document.getElementById('Menu4').style.color= "#00008b";
+				document.getElementById('Menu1').style.color= "#00008b";
+				document.getElementById('Menu6').style.color= "#00008b";
+				
+				document.getElementById('Menu2').style.backgroundColor= "#ffffff";
+				document.getElementById('Menu3').style.backgroundColor= "#ffffff";
+				document.getElementById('Menu4').style.backgroundColor= "#ffffff";
+				document.getElementById('Menu1').style.backgroundColor= "#ffffff";
+				document.getElementById('Menu6').style.backgroundColor= "#ffffff";
+				
+				document.getElementById('Menu2').style.fontWeight= "normal";
+				document.getElementById('Menu3').style.fontWeight= "normal";
+				document.getElementById('Menu4').style.fontWeight= "normal";
+				document.getElementById('Menu1').style.fontWeight= "normal";
+				document.getElementById('Menu6').style.fontWeight= "normal";
+				
+				break;
+			case 'Menu6':
+				
+				//Com Foco
+				document.getElementById('Menu6').style.fontFamily= "verdana";
+				document.getElementById('Menu6').style.fontSize= "9px";
+				document.getElementById('Menu6').style.fontStyle= "normal";
+				document.getElementById('Menu6').style.fontWeight= "bold";
+				document.getElementById('Menu6').style.fontVariant= "normal";
+				document.getElementById('Menu6').style.color= "#00008b";
+				document.getElementById('Menu6').style.backgroundColor= "#ffcc00";
+				
+				//Sem foco
+				document.getElementById('Menu2').style.fontFamily= "verdana";
+				document.getElementById('Menu3').style.fontFamily= "verdana";
+				document.getElementById('Menu4').style.fontFamily= "verdana";
+				document.getElementById('Menu5').style.fontFamily= "verdana";
+				document.getElementById('Menu1').style.fontFamily= "verdana";
+				
+				document.getElementById('Menu2').style.fontSize= "9px";
+				document.getElementById('Menu3').style.fontSize= "9px";
+				document.getElementById('Menu4').style.fontSize= "9px";
+				document.getElementById('Menu5').style.fontSize= "9px";
+				document.getElementById('Menu1').style.fontSize= "9px";
+				
+				document.getElementById('Menu2').style.color= "#00008b";
+				document.getElementById('Menu3').style.color= "#00008b";
+				document.getElementById('Menu4').style.color= "#00008b";
+				document.getElementById('Menu5').style.color= "#00008b";
+				document.getElementById('Menu1').style.color= "#00008b";
+				
+				document.getElementById('Menu2').style.backgroundColor= "#ffffff";
+				document.getElementById('Menu3').style.backgroundColor= "#ffffff";
+				document.getElementById('Menu4').style.backgroundColor= "#ffffff";
+				document.getElementById('Menu5').style.backgroundColor= "#ffffff";
+				document.getElementById('Menu1').style.backgroundColor= "#ffffff";
+				
+				document.getElementById('Menu2').style.fontWeight= "normal";
+				document.getElementById('Menu3').style.fontWeight= "normal";
+				document.getElementById('Menu4').style.fontWeight= "normal";
+				document.getElementById('Menu5').style.fontWeight= "normal";
+				document.getElementById('Menu1').style.fontWeight= "normal";
+				
+				break;
+		}
+	
+}
+
+function Atualiza_divs_e_menu_divs_tcc(id, qual_menu, classeOn, classeOff) {
+		
+		hideAll('Tcc');
+	    showElement(id);
+		
+		switch	(qual_menu) {
+			case 'Menu1':
+				
+				//Com Foco
+				document.getElementById('Menu1').style.fontFamily= "verdana";
+				document.getElementById('Menu1').style.fontSize= "9px";
+				document.getElementById('Menu1').style.fontStyle= "normal";
+				document.getElementById('Menu1').style.fontWeight= "bold";
+				document.getElementById('Menu1').style.fontVariant= "normal";
+				document.getElementById('Menu1').style.color= "#00008b";
+				document.getElementById('Menu1').style.backgroundColor= "#ffcc00";
+				
+				//Sem foco
+				document.getElementById('Menu2').style.fontFamily= "verdana";
+				document.getElementById('Menu3').style.fontFamily= "verdana";
+				
+				
+				document.getElementById('Menu2').style.fontSize= "9px";
+				document.getElementById('Menu3').style.fontSize= "9px";
+				
+				document.getElementById('Menu2').style.color= "#00008b";
+				document.getElementById('Menu3').style.color= "#00008b";
+				
+				document.getElementById('Menu2').style.backgroundColor= "#ffffff";
+				document.getElementById('Menu3').style.backgroundColor= "#ffffff";
+				
+				document.getElementById('Menu2').style.fontWeight= "normal";
+				document.getElementById('Menu3').style.fontWeight= "normal";
+								
+				break;
+			case 'Menu2':
+				
+				//Com Foco
+				document.getElementById('Menu2').style.fontFamily= "verdana";
+				document.getElementById('Menu2').style.fontSize= "9px";
+				document.getElementById('Menu2').style.fontStyle= "normal";
+				document.getElementById('Menu2').style.fontWeight= "bold";
+				document.getElementById('Menu2').style.fontVariant= "normal";
+				document.getElementById('Menu2').style.color= "#00008b";
+				document.getElementById('Menu2').style.backgroundColor= "#ffcc00";
+				
+				//Sem foco
+				document.getElementById('Menu1').style.fontFamily= "verdana";
+				document.getElementById('Menu3').style.fontFamily= "verdana";
+				
+				
+				document.getElementById('Menu1').style.fontSize= "9px";
+				document.getElementById('Menu3').style.fontSize= "9px";
+				
+				document.getElementById('Menu1').style.color= "#00008b";
+				document.getElementById('Menu3').style.color= "#00008b";
+				
+				document.getElementById('Menu1').style.backgroundColor= "#ffffff";
+				document.getElementById('Menu3').style.backgroundColor= "#ffffff";
+				
+				document.getElementById('Menu1').style.fontWeight= "normal";
+				document.getElementById('Menu3').style.fontWeight= "normal";
+				
+				if (document.UpdateAluno.txtDivulgacaoAutorizada[1].checked == true) {
+					document.UpdateAluno.txtExigeNaoDivulgacao.disabled = false;	
+					document.UpdateAluno.txtExigeContrato.disabled = false;	
+					document.UpdateAluno.txtOutros.disabled = false;	
+			
+					document.UpdateAluno.txtDivulgacaoAutorizada[1].value = "N";
+				}
+				
+				break;
+			case 'Menu3':
+				
+				//Com Foco
+				document.getElementById('Menu3').style.fontFamily= "verdana";
+				document.getElementById('Menu3').style.fontSize= "9px";
+				document.getElementById('Menu3').style.fontStyle= "normal";
+				document.getElementById('Menu3').style.fontWeight= "bold";
+				document.getElementById('Menu3').style.fontVariant= "normal";
+				document.getElementById('Menu3').style.color= "#00008b";
+				document.getElementById('Menu3').style.backgroundColor= "#ffcc00";
+				
+				//Sem foco
+				document.getElementById('Menu2').style.fontFamily= "verdana";
+				document.getElementById('Menu1').style.fontFamily= "verdana";
+				
+				
+				document.getElementById('Menu2').style.fontSize= "9px";
+				document.getElementById('Menu1').style.fontSize= "9px";
+				
+				document.getElementById('Menu2').style.color= "#00008b";
+				document.getElementById('Menu1').style.color= "#00008b";
+				
+				document.getElementById('Menu2').style.backgroundColor= "#ffffff";
+				document.getElementById('Menu1').style.backgroundColor= "#ffffff";
+				
+				document.getElementById('Menu2').style.fontWeight= "normal";
+				document.getElementById('Menu1').style.fontWeight= "normal";
+				
+				break;
+		}
+}
+
+</script>
+<script language=javascript>
+function ChamaHelp(PaginaHelp) 
+    {
+           window.open(PaginaHelp)
+    }
+</script>
+
+<script language=javascript>
+
+// Função utilizada pra verificar (Utilizado somente para Netscape/Firefox) os Event Handles do navegador!!!
+function WM_getCursorHandler(e) {
+  window.event.clientX = e.pageX;
+  window.event.clientY = e.pageY;
+  window.event.x = e.layerX;
+  window.event.y = e.layerY;
+  window.event.screenX = e.screenX;
+  window.event.screenY = e.screenY;
+  
+  if ( routeEvent(e) == false ) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+function fechar(e) {
+		 
+   
+	var browser = navigator.appName;
+	var b_version = navigator.appVersion;
+	var version = parseFloat(b_version);
+	
+    if (version < 4) {
+		alert("Seu navegador não é homologado com os Módulo Online do Lyceum. Erro com a Auditoria.");
+	}
+	
+	// Se entrar aqui o Navegador Utilizado é INTERNET EXPLORER
+	if (browser == "Microsoft Internet Explorer") {
+		
+		var iX = window.document.body.offsetWidth + window.event.clientX ;
+		var iY = window.event.clientY ;
+		
+		if (b_version.indexOf('MSIE 7.0') != -1 || b_version.indexOf('MSIE 8.0') != -1) {
+		
+			//IE 7+
+			// 800x600		--> 1587 / -112
+			// 1024 x 768	--> 2041 / -109
+			// 1152 x 864	--> 2295 / -107
+			// 1024 x 768 para Notebooks (Wide Screen) --> 2295 / -104
+			
+			if (iX >= 30 && iY < -105 ){
+				//window.open("logoff.asp", "_blank");
+			}
+	
+		}
+		else
+		{
+			
+			//IE 5.0 e IE 6.0.28+
+			// 800x600		--> -8413 / -10057
+			// 1024 x 768	--> -7964 / -10066
+			
+			if(window.event.clientX < 0 && window.event.clientY < 0) {
+				//window.open("logoff.asp", "_blank");
+			}
+		
+		}
+		
+	}
+	
+	// Se entrar aqui o Navegador Utilizado é o NETSCAPE/FIREFOX
+	if (browser == "Netscape") {
+		
+		if(!window.event && window.captureEvents) {
+		  // Configura o evento do mouse atual (adicionando substract)
+		  window.captureEvents(Event.MOUSEOVER|Event.MOUSEOUT|Event.CLICK|Event.DBLCLICK);
+		  // Configurando o window event handler
+		  window.onmouseover = WM_getCursorHandler;
+		  window.onmouseout = WM_getCursorHandler;
+		  window.onclick = WM_getCursorHandler;
+		  window.ondblclick = WM_getCursorHandler;
+		  // Cria um objeto para armazenar as propriedades que vem do event Handler
+		  window.event = new Object;
+		}
+		
+		var posx = 0;
+		var posy = 0;
+
+		if (!e) e = window.event;
+
+		if (e.pageX || e.pageY) {
+		       posx = e.pageX;
+		       posy = e.pageY;
+		} else if (e.clientX || e.clientY) {
+			   posx = e.clientX + document.body.scrollLeft;
+		       posy = e.clientY + document.body.scrollTop;
+		}
+		
+		// Esperando Fix para Firefox 3 ainda sem solução. Navegador bugado sempre retornando 0 para ambos.
+		if (posx > 750 &&  posy > 0) {
+		  var win;
+		  win = window.open("logoff.asp", "abrir_janela","menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes");
+		}
+	
+	}
+	
+}
+
+//Função utilizada para o MENU de alunos com NECESSIDADES ESPECIAIS
+function register(e) {
+	
+	var browser = navigator.appName;
+    var b_version = navigator.appVersion;
+    var version = parseFloat(b_version);
+    
+    if (browser == "Microsoft Internet Explorer") {
+		
+		var Key = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
+		var pressedKey = String.fromCharCode(Key).toLowerCase();
+  
+		switch (pressedKey) {		
+			case '1':
+				unShowAllMenu();
+				ShowPrincipal();
+				break;
+			case '2':
+				ShowMenu('M2','M2L1');
+				unShowMenu('M3');
+				unShowMenu('M4');
+				unShowMenu('M5');
+				break;
+			case '3':
+				ShowMenu('M3','M3L1');
+				unShowMenu('M2');
+				unShowMenu('M4');
+				unShowMenu('M5');
+				break;
+			case '4':
+				ShowMenu('M4','M4L1');
+				unShowMenu('M2');
+				unShowMenu('M3');
+				unShowMenu('M5');				
+				break;
+			case '5':
+				ShowMenu('M5','M5L1');
+				unShowMenu('M2');
+				unShowMenu('M3');
+				unShowMenu('M4');				
+				break;
+			case '6':
+				unShowAllMenu();
+				ShowMatricula();
+				break;
+			case '7':
+				unShowAllMenu();
+				Sair();
+				break;
+			case 'ESC':
+				unShowAllMenu();							
+				break;					
+		}
+		
+		
+	}
+	else
+	{
+		// Netscape e Firefox
+		
+		var Key = e.keyCode;
+		var evtobj = window.event? event : e;
+		var pressedKey = String.fromCharCode(Key).toLowerCase();
+		
+		switch (pressedKey) {		
+			case '1':
+				unShowAllMenu();
+				ShowPrincipal();
+				break;
+			case '2':
+				ShowMenu('M2','M2L1');
+				unShowMenu('M3');
+				unShowMenu('M4');
+				unShowMenu('M5');
+				break;
+			case '3':
+				ShowMenu('M3','M3L1');
+				unShowMenu('M2');
+				unShowMenu('M4');
+				unShowMenu('M5');
+				break;
+			case '4':
+				ShowMenu('M4','M4L1');
+				unShowMenu('M2');
+				unShowMenu('M3');
+				unShowMenu('M5');				
+				break;
+			case '5':
+				ShowMenu('M5','M5L1');
+				unShowMenu('M2');
+				unShowMenu('M3');
+				unShowMenu('M4');				
+				break;
+			case '6':
+				unShowAllMenu();
+				ShowMatricula();
+				break;
+			case '7':
+				unShowAllMenu();
+				Sair();
+				break;
+			case 'ESC':
+				unShowAllMenu();								
+				break;	
+		}
+	}  
+    
+}
+//Função utilizada para o MENU de alunos com NECESSIDADES ESPECIAIS
+function ShowMenu(menu,subm){
+			var theSubMenu = document.getElementById(menu);
+			theSubMenu.className="msieFix";
+			document.getElementById(subm).focus();
+}
+ //Função utilizada para o MENU de alunos com NECESSIDADES ESPECIAIS
+ function unShowMenu(menu){  
+			var theSubMenu = document.getElementById(menu);
+			theSubMenu.className="trigger";
+}
+//Função utilizada para o MENU de alunos com NECESSIDADES ESPECIAIS
+ function unShowAllMenu(){  
+			document.getElementById('M2').className="trigger";
+			document.getElementById('M3').className="trigger";
+			document.getElementById('M4').className="trigger";
+			document.getElementById('M5').className="trigger";
+			document.getElementById('M1').focus();
+}
+
+//Função utilizada para o MENU de alunos com NECESSIDADES ESPECIAIS
+function Sair() {  
+    //Realizando logoff do Aol.
+	location.replace('logoff.asp');
+ }
+
+//Função utilizada para o MENU de alunos com NECESSIDADES ESPECIAIS
+function ShowPrincipal() {  
+	//Apresenta a página principal do Aol.
+	location.replace('main.asp');
+}
+
+//Função utilizada para o MENU de alunos com NECESSIDADES ESPECIAIS
+function ShowMatricula() {  
+	//Apresenta a página da Matrícula/Pré-Matrícula
+	location.replace('matricula.asp');
+}
+
+//Função utilizada para o MENU de alunos com NECESSIDADES ESPECIAIS
+function getProxNode(menu, subm){		
+			novoitem = subm + 1;
+			novoitem = "M" + menu + "L" + novoitem;
+				document.getElementById(novoitem).focus();					
+}
+//Função utilizada para o MENU de alunos com NECESSIDADES ESPECIAIS			
+function getPrevNode(menu, subm){		
+			novoitem = subm - 1;
+			if (novoitem != 0) {
+			novoitem = "M" + menu + "L" + novoitem;
+				document.getElementById(novoitem).focus();
+				}					
+}
+
+</script>
+
+
+
+</head>
+
+
+	<body bgcolor="#FFFFFF" onunload="fechar2();" onresize="CSSMENU_KEYBOARD();" >
+
+<div style="margin: auto;">
+
+
+
+<div align="center">
+    <div align="right" class="font01" style="width:750px">segunda-feira, 2 de abril de 2018
+</div>
+	<div align="Left" style="width:750px">
+		
+			<img src="images/logo_tecuni.gif">
+		
+
+
+	</div>	
+		 <!-- Retirando ajuda do Aluno Online-->
+		  <!--<div align="right" style="width:750px">
+			
+			<a onclick="javascript:ChamaHelp('');" >
+			<img align=center src="images/interroga.gif" width="20" height="20" alt="Ajuda" style="cursor:pointer">
+			</a>
+		  </div>
+		  -->
+</div>
+
+</div>   
+
+
+	<Div style="position: relative;z-index: 999999" id="panMainMenu">
+		<!-- inicio menu drop down -->
+
+
+<script language="JavaScript" type="text/javascript">
+<!--
+	var temp = navigator.appVersion.split("MSIE");
+    var versao = parseFloat(temp[1]);
+    var sMensagemBrowser;
+    
+if( document.all && ! navigator.userAgent.match(/opera/gi) ) { // somente IE 
+	if ((versao<=6) & (navigator.appMinorVersion.indexOf("SP")== -1))	{
+		sMensagemBrowser =  "ATENÇÃO \n";
+		sMensagemBrowser = sMensagemBrowser + "Seu browser não é compatível com essa versão do Aluno Online.\n";
+		sMensagemBrowser = sMensagemBrowser + "Favor usar a versão 6(SP1) do Internet Explorer ou superior.\n ";
+		sMensagemBrowser = sMensagemBrowser + "As versões mais recentes estão disponíveis em: \n";
+		sMensagemBrowser = sMensagemBrowser + "http://www.microsoft.com/brasil/windows/ie/default.mspx";
+		
+		alert(sMensagemBrowser);
+	}
+} 
+
+
+function swap(){this.className="msieFix";}
+function swapBack(){this.className="trigger";}
+function toggle(){
+	// alert ((this.parentNode.id));//***debug
+	(this.parentNode.className=="trigger")?this.parentNode.className="msieFix":this.parentNode.className="trigger";
+	//return false;//desabilitado propositamente
+}
+function reveal(){
+this.parentNode.parentNode.parentNode.className="msieFix";
+}
+function cleanUp(){
+	var zA;
+	var LI = document.getElementsByTagName("li");
+	var zLI= LI.length;
+		for(var k=0;k<zLI;k++){
+		if(LI[k]!=this.parentNode){
+		LI[k].className="trigger";
+		}
+	}	
+}
+function CSSMENU_KEYBOARD(){
+	var LI = document.getElementsByTagName("li");
+	var zLI= LI.length;
+	if (document.getElementById){
+		for(var k=0;k<zLI;k++){
+			if(LI[k].id){
+				LI[k].className="trigger";
+				LI[k].firstChild.onclick=toggle;
+				LI[k].firstChild.onfocus=cleanUp;
+			}
+			if(LI[k].className=="trigger"){
+				LI[k].onmouseover=swap;
+				LI[k].onmouseout=swapBack;
+			}
+			if(!LI[k].id){
+				LI[k].firstChild.onfocus=reveal;
+			}
+		}
+	}
+}
+
+document.write('<style type="text/css" media="screen">@import "CSSMENU/CSSMENUModernBrowsersWithScriptSupport.css";</style>')
+//window.onload=function(){CSSMENU_KEYBOARD();}
+if (window.attachEvent)
+{
+	window.attachEvent("onload", function(){CSSMENU_KEYBOARD();});
+}
+else
+{
+	window.onload=function(){CSSMENU_KEYBOARD();}
+}
+
+//-->
+</script>
+
+<!--[if lt IE 7]>
+<noscript>
+<style type="text/css" media="screen">
+@import "CSSMENU/CSSMENUkeyboardDropDownJSoff.css";
+</style>
+</noscript>
+<!--[if IE 5.5000]> <style type="text/css" media="screen"> @import "CSSMENU/ie5-5.css"; </style> <![endif]-->
+<!--[if IE 5]> <style type="text/css" media="screen"> @import "CSSMENU/ie5.css"; </style> <![endif]-->
+<link rel="stylesheet" type="text/css" href="CSSMENU/CSSMENU_STRUCTURE.css">
+<link rel="stylesheet" type="text/css" href="CSSMENU/GRAY_CSSMENU.css">
+
+
+<div id="CSSMENUPOSITION" align="center">
+<div id="CSSMENUCONTAINER" style="width:750px;">
+<div id="CSSMENUCONTAINERLEFT">
+<img src="CSSMENU/images/gray_left_cap.gif" />
+</div>
+<ul id="CSSMENU">
+	<li id="M1" class="trigger"><a href="main.asp" style="cursor:pointer;cursor:hand;">Principal</a></li>
+	<li id="M2" class="trigger"><a href="#">Acad&ecirc;mico</a>
+		<ul>
+			<!--<li><a href="horario.asp" id="M2L1">Horário de Aulas</a></li> Retirado pois não será utilizado -->
+			<!--<li><a href="calendario_aulas.asp" id="M2L2">Calendário</a></li>      Retirado pois não será utilizado -->
+			<li><a href="calendario.asp" id="M2L3">Calendário de Provas</a></li>     
+			<li><a href="falta.asp" id="M2L4">Calendário de Faltas</a></li>
+			<li><a href="notas_freq.asp" id="M2L5">Notas e Frequência</a></li>
+			<!--<li><a href="indice_rend.asp" id="M2L6"> Índice de Rendimento</a></li> Retirado pois não será utilizado -->
+			<!--<li><a href="selecionadisciplinadiario.asp" id="M2L7">Diário de Classe</a></li>  Retirado pois não será utilizado -->
+			<!--<li><a href="selecionaDisciplinaPublic.asp" id="M2L8">Publicações</a></li> Retirado pois não será utilizado -->
+			<!--<li><a href="meusdocentes.asp" id="M2L9">Disciplinas Matriculadas</a></li>-->   
+			<li><a href="historico.asp" id="M2L10">Histórico Acadêmico</a></li>
+			<!--<li><a href="disciplinas_pendentes.asp" id="M2L11">Disciplinas a Cursar</a></li> -->
+			<li><a href="documentos_a_serem_entregues.asp" id="M2L12">Documentos</a></li>
+			<li><a href="dados_do_aluno.asp" id="M2L12">Dados Cadastrais</a></li>
+			<li><a href="dados_vestibular.asp" id="M2L13">Dados Processo Seletivo</a></li>
+			<!--<li><a href="avisos.asp" id="M2L14">Avisos</a></li>  Retirado pois não será utilizado -->
+			<!--<li><a href="alterar_senha.asp" id="M2L15">  Alterar Senha</a></li> -->
+			<!--<li><a href="PosGraduacao.asp" id="M2L16">Pós Graduação</a></li>   Retirado pois não será utilizado -->
+			<!--<li><a href="notas_freq_boletim.asp" id="M2L17">Boletim</a></li>-->   
+			<!--<li><a href="aolocorrencias.asp" id="M2L18">Ocorrências</a></li> Retirado pois não será utilizado -->
+			<li><a href="QuestionariosDetalhes.asp" id="M2L19">Questionários</a></li>
+		</ul>
+	</li>
+	<li id="M3" class="trigger"><a href="#">Financeiro</a>
+  		<ul>
+            <!--<li><a href="selecao_boleto.asp" id="M3L1"> Impressão de Boleto</a></li>-->
+            <li><a href="extrato_financeiro.asp" id="M3L2">Extrato Financeiro</a></li>
+            <!--<li><a href="itens_cobranca.asp" id="M3L3">Itens em Cobrança</a></li> -->
+      		<!--<li><a href="acordo_cobrancas.asp" id="M3L4">Acordo</a></li>    -->
+            <li><a href="acordo_consulta.asp" id="M3L5">Acordo Consulta</a></li>
+            <li><a href="ver_contrato.asp" id="M3L6">Visualizar Contrato</a></li> 
+            <!--<li><a href="gera_arrasto.asp" id="M3L7">Ajustar boleto com atraso</a></li> -->
+		</ul>
+	</li>
+	<li id="M4" class="trigger"><a href="#">Servi&ccedil;os</a>
+  		<ul>
+	  		<li><a href="tabela_servicos.asp?Classificacao=(Todos)" id="M4L1">Solicitação de Serviços</a></li>
+			<li><a href="servicos_solicit.asp" id="M4L2">Serviços Solicitados</a></li>       
+          	<li><a href="servicos_cancelados.asp" id="M4L3">Cancelamento de Serviços</a></li>
+          	<li><a href="pendencias_matricula.asp" id="M4L4">Pendências para Matrícula</a></li>
+		</ul>
+	</li>
+<!--	<li id="M5" class="trigger"><a href="#">Institucional</a>
+  		<ul>
+   	  		<li><a href="faculdades.asp" id="M5L1">Unidades</a></li>  
+            <li><a href="cursos.asp"  id="M5L2">Cursos e Currículos</a></li>
+            <li><a href="docentes.asp"  id="M5L3">Docentes</a></li>  
+		</ul>
+	</li> Retirado pois não será utilizado -->
+
+	<!--
+	<li id="M6" class="trigger"><a href="MatriculaEadcon.asp" style="cursor:pointer;cursor:hand;">Matrícula</a></li>
+	-->
+	<!--<li id="M7" class="trigger"><a href="logoff.asp" style="cursor:pointer;cursor:hand;">Sair</a></li> Retirado pois não será utilizado -->
+</ul>
+<div id="CSSMENUCONTAINERRIGHT">
+<img src="CSSMENU/images/gray_right_cap.gif"/>
+</div>
+</div>
+</div>
+
+  <!-- fim menu drop down -->
+
+ 
+	</div>
+
+	<div align="center" style="position: relative;z-index: 999998" id="ctnTabPagina">
+		<div id="TabPagina" style="width:750px;" >
+			<div id="TabPaginaUser" style="width:50%;">
+				Aluno(a): <strong>
+				EDERLINO DE ALMEIDA CAMARGOS</strong>
+			</div>
+			<div id="TabPaginaNome" style="width:48%;">
+				Página: <strong>Solicitação de Serviços</strong>
+				
+			</div>
+		</div>
+	</div>
+
+<br />
+<br />
+<div style="margin: auto;position: relative;z-index: 999997" id="ctnTabPagina2">
+
+
+
+
+	
+<!-- Conteudo -->
+<table width="750" border="0" cellspacing="0" cellpadding="0" align="center">
+<tr><td>
+
+
+
+	
+<script language="javascript">
+
+	function tgetobjeto(e) {
+	  if(typeof(e)=='string') {
+	    if(document.getElementById) e=document.getElementById(e);
+	    else if(document.all) e=document.all[e];
+	    else e=null;
+	  }
+	  return e;
+	}
+
+    function ChecaOpcoesEletronicas()
+    {
+		var i;
+		
+		var nomeControle = new String;
+		var controles;
+		//contagem de serviços emitidos eletronicamente
+		var servSolicitViaWeb;
+		//contagem de serviços "comuns"
+		var servComumSolic;
+		
+		var qtdServSolicitViaWeb;
+		
+		servSolicitViaWeb=0;
+		servComumSolic=0;
+		qtdServSolicitViaWeb = 0;
+		
+        controles = document.getElementsByTagName("INPUT");
+
+/*
+		'==========================================================================================
+		'A função ChecaOpcoesEletronicas foi alterada para diferenciar os controles dos serviços
+		'emitidos eletronicamente pelo id que eles possuem.
+		'Note que os controles desses serviços começam com "Web"
+		'==========================================================================================			
+*/
+		for (i=0; i<controles.length; i++)
+		{
+		    //if (controles[i].type!='hidden')
+		    nomeControle = controles[i].id;
+		    if ((parseInt(controles[i].value)!=0) && (controles[i].value != ''))
+			
+			{
+				if (nomeControle.indexOf("web_")>=0)
+				{
+				    servSolicitViaWeb = servSolicitViaWeb + 1;
+				    qtdServSolicitViaWeb = qtdServSolicitViaWeb + parseInt(controles[i].value);
+				    //alert('crtl.'+controles[i].name+' - idx.'+i+' - val.'+controles[i].value);
+				}
+				if (nomeControle.indexOf("serv_")>=0)
+				{
+				    servComumSolic = servComumSolic + 1;
+				    //alert('crtl.'+controles[i].name+' - idx.'+i+' - val.'+controles[i].value);
+				}
+			}
+
+		}
+		
+		//alert('solicitados:'+solicitados);
+		
+		if (servSolicitViaWeb > 1) 
+		{
+			alert('Serviços Emitidos Eletronicamente devem ser emitidos individualmente.');
+			return false;
+		}	
+		if ((servSolicitViaWeb>0)&&(servComumSolic>0))
+		{
+			alert('Você só pode solicitar um Serviço Emitido Eletronicamente por solicitação!');
+			return false;
+		}
+		if (qtdServSolicitViaWeb > 1) 
+		{
+			alert('Você só pode solicitar um Serviço Emitido Eletronicamente por vez!');
+			return false;
+		}
+		
+		return true;
+		
+    }
+    
+    function EnviaFormulario()
+    {
+		
+		if (ChecaOpcoesEletronicas())
+		{
+			document.getElementById('form01').submit();
+		}
+    }
+	
+</script>
+<style type="text/css">
+		.ajudaA
+		{ BACKGROUND-COLOR: #c7d6fe; }
+
+
+		.ajuda
+		{ BACKGROUND-COLOR: #ffffff; }
+	</style>
+<form name=frmClassificacao id=frmClassificacao method=post><font class=font01x>Classificação: </font><select name='cmbClassificacao' size='1' class=font01 id='cmbClassificacao' onchange='Redireciona();'><option></option><option selected>(Todos)</option></select></form><br><form action=confirma_servicos.asp method=post name='form01' id='form01'><table border=0 width="750"><tr class=ajudaA><td width="5%" class=font01n>Quant.</td><td width="40%" class=font01n>Solicitação</td><td width="35%" class=font01n>&nbsp;</td><td class=font01n align=center width="10%">Custo</td></tr><tr class=tr01><td class=font01 align=center>	<input id='serv_R023BRB' type=text size=1 name='quantR023BRB'  value=0 maxlength=5></td><td class=font01>(Retirada Balcão - Campus Lapa/PR) Declaração de vínculo com assinatura - Graduação.</td><td class=font01 align=right>		<textarea cols="30" rows="2" name='txtObsR023BRB' 		onKeyUp='javascript:limita("txtObsR023BRB","7000", "R023BRB");'></textarea><BR>Caracteres restantes: <input readonly style='font-size:1.0em;' type='text' name='txtObsTamanho_R023BRB' id='txtObsTamanho_R023BRB' value='7000' size=2></td><td class=font01 align=right>R$ 0,00</td></tr>
+<tr class=tr01><td class=font01 colspan='4'><hr size='1' width='100%' align='center'></td></tr><tr class=tr01><td class=font01 align=center>	<input id='serv_FL_REQ.002.4RB' type=text size=1 name='quantFL_REQ.002.4RB'  value=0 maxlength=5></td><td class=font01>(Retirada Balcão - Campus Lapa/PR) FAEL - Ementa - Pós-Graduação</td><td class=font01 align=right>		<textarea cols="30" rows="2" name='txtObsFL_REQ.002.4RB' 		onKeyUp='javascript:limita("txtObsFL_REQ.002.4RB","7000", "FL_REQ.002.4RB");'></textarea><BR>Caracteres restantes: <input readonly style='font-size:1.0em;' type='text' name='txtObsTamanho_FL_REQ.002.4RB' id='txtObsTamanho_FL_REQ.002.4RB' value='7000' size=2></td><td class=font01 align=right>R$ 0,00</td></tr>
+<tr class=tr01><td class=font01 colspan='4'><hr size='1' width='100%' align='center'></td></tr><tr class=tr01><td class=font01 align=center>	<input id='serv_R025RB' type=text size=1 name='quantR025RB'  value=0 maxlength=5></td><td class=font01>(Retirada Balcão - Campus Lapa/PR) Histórico Escolar de Graduação / Pós-graduação.</td><td class=font01 align=right>		<textarea cols="30" rows="2" name='txtObsR025RB' 		onKeyUp='javascript:limita("txtObsR025RB","7000", "R025RB");'></textarea><BR>Caracteres restantes: <input readonly style='font-size:1.0em;' type='text' name='txtObsTamanho_R025RB' id='txtObsTamanho_R025RB' value='7000' size=2></td><td class=font01 align=right>R$ 0,00</td></tr>
+<tr class=tr01><td class=font01 colspan='4'><hr size='1' width='100%' align='center'></td></tr><tr class=tr01><td class=font01 align=center>	<input id='serv_R045' type=text size=1 name='quantR045'  value=0 maxlength=5></td><td class=font01>2ª  via de Certificado de Extensão (Pré-pago)</td><td class=font01 align=right>		<textarea cols="30" rows="2" name='txtObsR045' 		onKeyUp='javascript:limita("txtObsR045","7000", "R045");'></textarea><BR>Caracteres restantes: <input readonly style='font-size:1.0em;' type='text' name='txtObsTamanho_R045' id='txtObsTamanho_R045' value='7000' size=2></td><td class=font01 align=right>R$ 50,00</td></tr>
+<tr class=tr01><td class=font01 colspan='4'><hr size='1' width='100%' align='center'></td></tr><tr class=tr01><td class=font01 align=center>	<input id='serv_R032' type=text size=1 name='quantR032'  value=0 maxlength=5></td><td class=font01>2ª Via de Certidão de Conclusão de Curso: Graduação e Pós-Graduação (Pré-pago)</td><td class=font01 align=right>		<textarea cols="30" rows="2" name='txtObsR032' 		onKeyUp='javascript:limita("txtObsR032","7000", "R032");'></textarea><BR>Caracteres restantes: <input readonly style='font-size:1.0em;' type='text' name='txtObsTamanho_R032' id='txtObsTamanho_R032' value='7000' size=2></td><td class=font01 align=right>R$ 25,00</td></tr>
+<tr class=tr01><td class=font01 colspan='4'><hr size='1' width='100%' align='center'></td></tr><tr class=tr01><td class=font01 align=center>	<input id='serv_R030' type=text size=1 name='quantR030'  value=0 maxlength=5></td><td class=font01>2ª Via de Diploma de Graduação (Pré-pago)</td><td class=font01 align=right>		<textarea cols="30" rows="2" name='txtObsR030' 		onKeyUp='javascript:limita("txtObsR030","7000", "R030");'></textarea><BR>Caracteres restantes: <input readonly style='font-size:1.0em;' type='text' name='txtObsTamanho_R030' id='txtObsTamanho_R030' value='7000' size=2></td><td class=font01 align=right>R$ 110,00</td></tr>
+<tr class=tr01><td class=font01 colspan='4'><hr size='1' width='100%' align='center'></td></tr><tr class=tr01><td class=font01 align=center>	<input id='serv_R0252' type=text size=1 name='quantR0252'  value=0 maxlength=5></td><td class=font01>2ª Via de Histórico Escolar de Conclusão de Curso: Graduação e Pós-graduação (Pré-pago)</td><td class=font01 align=right>		<textarea cols="30" rows="2" name='txtObsR0252' 		onKeyUp='javascript:limita("txtObsR0252","7000", "R0252");'></textarea><BR>Caracteres restantes: <input readonly style='font-size:1.0em;' type='text' name='txtObsTamanho_R0252' id='txtObsTamanho_R0252' value='7000' size=2></td><td class=font01 align=right>R$ 30,00</td></tr>
+<tr class=tr01><td class=font01 colspan='4'><hr size='1' width='100%' align='center'></td></tr><tr class=tr01><td class=font01 align=center>	<input id='serv_R046' type=text size=1 name='quantR046'  value=0 maxlength=5></td><td class=font01>Declaração de Estágio (Pré-pago)</td><td class=font01 align=right>		<textarea cols="30" rows="2" name='txtObsR046' 		onKeyUp='javascript:limita("txtObsR046","7000", "R046");'></textarea><BR>Caracteres restantes: <input readonly style='font-size:1.0em;' type='text' name='txtObsTamanho_R046' id='txtObsTamanho_R046' value='7000' size=2></td><td class=font01 align=right>R$ 10,30</td></tr>
+<tr class=tr01><td class=font01 colspan='4'><hr size='1' width='100%' align='center'></td></tr><tr class=tr01><td class=font01 align=center>	<input id='serv_R042' type=text size=1 name='quantR042'  value=0 maxlength=5></td><td class=font01>Declaração de estar apto a colar grau de graduação (Pré-pago)</td><td class=font01 align=right>		<textarea cols="30" rows="2" name='txtObsR042' 		onKeyUp='javascript:limita("txtObsR042","7000", "R042");'></textarea><BR>Caracteres restantes: <input readonly style='font-size:1.0em;' type='text' name='txtObsTamanho_R042' id='txtObsTamanho_R042' value='7000' size=2></td><td class=font01 align=right>R$ 8,80</td></tr>
+<tr class=tr01><td class=font01 colspan='4'><hr size='1' width='100%' align='center'></td></tr><tr class=tr01><td class=font01 align=center>	<input id='serv_R023B' type=text size=1 name='quantR023B'  value=0 maxlength=5></td><td class=font01>Declaração de vínculo com assinatura - Graduação. (Pré-pago)</td><td class=font01 align=right>		<textarea cols="30" rows="2" name='txtObsR023B' 		onKeyUp='javascript:limita("txtObsR023B","7000", "R023B");'></textarea><BR>Caracteres restantes: <input readonly style='font-size:1.0em;' type='text' name='txtObsTamanho_R023B' id='txtObsTamanho_R023B' value='7000' size=2></td><td class=font01 align=right>R$ 10,30</td></tr>
+<tr class=tr01><td class=font01 colspan='4'><hr size='1' width='100%' align='center'></td></tr><tr class=tr01><td class=font01 align=center>	<input id='serv_FL_REQ.002.1' type=text size=1 name='quantFL_REQ.002.1'  value=0 maxlength=5></td><td class=font01>FAEL - Ementa (Até 10 disciplinas) (Pré-pago)</td><td class=font01 align=right>		<textarea cols="30" rows="2" name='txtObsFL_REQ.002.1' 		onKeyUp='javascript:limita("txtObsFL_REQ.002.1","7000", "FL_REQ.002.1");'></textarea><BR>Caracteres restantes: <input readonly style='font-size:1.0em;' type='text' name='txtObsTamanho_FL_REQ.002.1' id='txtObsTamanho_FL_REQ.002.1' value='7000' size=2></td><td class=font01 align=right>R$ 10,30</td></tr>
+<tr class=tr01><td class=font01 colspan='4'><hr size='1' width='100%' align='center'></td></tr><tr class=tr01><td class=font01 align=center>	<input id='serv_FL_REQ.002.2' type=text size=1 name='quantFL_REQ.002.2'  value=0 maxlength=5></td><td class=font01>FAEL - Ementa (De 11 até 20 disciplinas) (Pré-pago)</td><td class=font01 align=right>		<textarea cols="30" rows="2" name='txtObsFL_REQ.002.2' 		onKeyUp='javascript:limita("txtObsFL_REQ.002.2","7000", "FL_REQ.002.2");'></textarea><BR>Caracteres restantes: <input readonly style='font-size:1.0em;' type='text' name='txtObsTamanho_FL_REQ.002.2' id='txtObsTamanho_FL_REQ.002.2' value='7000' size=2></td><td class=font01 align=right>R$ 20,60</td></tr>
+<tr class=tr01><td class=font01 colspan='4'><hr size='1' width='100%' align='center'></td></tr><tr class=tr01><td class=font01 align=center>	<input id='serv_FL_REQ.002.3' type=text size=1 name='quantFL_REQ.002.3'  value=0 maxlength=5></td><td class=font01>FAEL - Ementa (mais de 20 disciplinas) (Pré-pago)</td><td class=font01 align=right>		<textarea cols="30" rows="2" name='txtObsFL_REQ.002.3' 		onKeyUp='javascript:limita("txtObsFL_REQ.002.3","7000", "FL_REQ.002.3");'></textarea><BR>Caracteres restantes: <input readonly style='font-size:1.0em;' type='text' name='txtObsTamanho_FL_REQ.002.3' id='txtObsTamanho_FL_REQ.002.3' value='7000' size=2></td><td class=font01 align=right>R$ 30,90</td></tr>
+<tr class=tr01><td class=font01 colspan='4'><hr size='1' width='100%' align='center'></td></tr><tr class=tr01><td class=font01 align=center>	<input id='serv_R025' type=text size=1 name='quantR025'  value=0 maxlength=5></td><td class=font01>Histórico Escolar Parcial: Graduação / Pós-graduação. (Pré-pago)</td><td class=font01 align=right>		<textarea cols="30" rows="2" name='txtObsR025' 		onKeyUp='javascript:limita("txtObsR025","7000", "R025");'></textarea><BR>Caracteres restantes: <input readonly style='font-size:1.0em;' type='text' name='txtObsTamanho_R025' id='txtObsTamanho_R025' value='7000' size=2></td><td class=font01 align=right>R$ 10,30</td></tr>
+<tr class=tr01><td class=font01 colspan='4'><hr size='1' width='100%' align='center'></td></tr><tr class=tr01><td class=font01 align=center>	<input id='serv_R040' type=text size=1 name='quantR040'  value=0 maxlength=5></td><td class=font01>Transferencia externa: Histórico Escolar Parcial + Ementário com sistema de  Avaliação (Pré-pago)</td><td class=font01 align=right>		<textarea cols="30" rows="2" name='txtObsR040' 		onKeyUp='javascript:limita("txtObsR040","7000", "R040");'></textarea><BR>Caracteres restantes: <input readonly style='font-size:1.0em;' type='text' name='txtObsTamanho_R040' id='txtObsTamanho_R040' value='7000' size=2></td><td class=font01 align=right>R$ 20,60</td></tr>
+<tr class=ajudaA><td colspan=5 class=font01n> Serviços Emitidos Eletronicamente </td></tr><tr class=tr01><td class=font01 align=center>    <input type=text id='web_R002_Assist_Liberar' size=1 name='quantR002_Assist_Liberar' value=0 ></td><td class=font01>1º Passo - Liberação da Declaração de Vinculo online - Graduação pelo Assistente</td><td class=font01 align=right><input type='hidden' name='txtObsR002_Assist_Liberar' value=''></td><td class=font01 align=right>R$ 0,00</td></tr>
+<tr class=tr01><td class=font01 colspan='5'><hr size='1' width='100%' align='center'></td></tr><tr class=tr01><td class=font01 align=center>    <input type=text id='web_R002_Assist' size=1 name='quantR002_Assist' value=0 ></td><td class=font01>2º Passo - Gerar Declaração de Vinculo online  - Graduação pelo Assistente</td><td class=font01 align=right><input type='hidden' name='txtObsR002_Assist' value=''></td><td class=font01 align=right>R$ 0,00</td></tr>
+<tr class=tr01><td class=font01 colspan='5'><hr size='1' width='100%' align='center'></td></tr><tr class=tr01><td class=font01 align=center>    <input type=text id='web_R002' size=1 name='quantR002' value=0 ></td><td class=font01>Declaração de Vinculo online - Graduação</td><td class=font01 align=right><input type='hidden' name='txtObsR002' value=''></td><td class=font01 align=right>R$ 0,00</td></tr>
+
+<tr class=tr01><td colspan=3 class=font01></td></tr>
+<tr class=tr01><td colspan=3 class=font01 align=center>
+
+
+</table></form>
+<script language="JavaScript">
+	function limita(input, pTamanho, pPartedoID) {
+		// Para SQL SERVER --> pTamanho = 7000;
+		// Para ORACLE --> pTamanho = 4000;
+		
+		var controle = document.forms["form01"].elements[input];
+		var tamanho = controle.value.length;
+		var tex= controle.value;
+		var tamanhoLimite = parseInt(pTamanho);
+		if (tamanho >= tamanhoLimite) {
+			controle.value = tex.substring(0,tamanhoLimite);
+		}
+		tamanho = controle.value.length;
+		tgetobjeto("txtObsTamanho_" + pPartedoID).value = tamanhoLimite - tamanho; 
+		return true;
+	}
+	
+	function Redireciona() {
+		
+		var combo = document.getElementById('cmbClassificacao').options[cmbClassificacao.selectedIndex].text;
+		location.href = "tabela_servicos.asp?Classificacao=" + combo;
+		
+	}
+	
+</script>
+
+
+<script type="text/javascript" src="animated_scroll.js"></script>
+
+<div class="wrap">
+	<p class="top"><a href="javascript:EnviaFormulario();">&nbsp;</a></p>
+</div>
+
+<style type="text/css">
+	<!--
+	.top {  width:90px; height:25px; margin:0; padding:0; right:10px; bottom:10px; position:fixed; }
+	.top a { width:100px; height:100px; display:block; overflow:hidden; font-size:1px; text-indent:-200px; background:url("../images/atualizar.gif") no-repeat; }
+	-->
+</style>
+<br />
+<br />
+</td></tr>
+</table> 
+</div>
+
+
+</body>
+</html>
