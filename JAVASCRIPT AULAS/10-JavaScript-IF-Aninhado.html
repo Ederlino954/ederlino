@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<title>CFB Cursos - Javascript</title>
+		<meta charset="utf-8">
+
+		<script type="text/javascript">		
+
+			// IF - Aninhado == ifs dentro de outros ifs 
+
+			var nota = 80;// Aprovado Nota >= 60 // recuperação >= 40 < 60 // reprovado > 40 // Aprovado com Louvor > 95
+			var res;			
+
+			if (nota >= 60) {
+				res="Aprovado"; // linha de aprovação
+				if (nota >= 95) {
+					if (nota == 100) {
+						res += " com Excelência"; // concatenando 
+					} else {
+						res +=" com louvor"; // concatenando
+					}
+					 
+				} else {
+					res+=" com nota normal"; // concatenando 
+				}				
+			}else if (nota >= 40) { 
+				res="Recuperação";
+			}else{
+				res="Reprovado"; // linha de reprovação 
+				if (nota >= 20) {
+					res+=" por nota baixa";	// concatenando			
+				}else {
+				res+=" com louvor";	// concatenando 
+				}			
+			}	
+
+			document.write(res);
+
+
+			
+			
+		</script> 
+
+	</head>
+	<body>
+
+	</body>
+</html>

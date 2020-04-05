@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<title>CFB Cursos - Javascript</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+
+	</style>
+	<script type="text/javascript">	
+
+		// 	Objeto History
+
+		var painel,btnB,btnF,btnG;
+
+		/*function hB() {
+			window.history.back();
+		}
+
+		function hF() {
+			window.history.forward();
+		}
+
+		function hg() {
+			window.history.go(-2); // positivo oi negativo 
+		}
+		*/
+
+		function hi(num) {
+			window.history.go(num); // positivo oi negativo 
+		}
+
+		function inicia() {	
+			btnB=document.getElementById("btnBack");
+			btnF=document.getElementById("btnForward");	
+			btnG=document.getElementById("btnBack2");
+
+			btnB.addEventListener("click",function () {
+				hi(-1);
+			});
+			btnF.addEventListener("click",function () {
+				hi(1);
+			});
+			btnG.addEventListener("click",function function_name(argument) {
+				hi(-2);
+			});
+
+			painel=document.getElementById("info");
+			painel.innerHTML=history.length;
+		}	
+
+		window.addEventListener("load",inicia);
+		
+	</script>
+</head>
+<body>	
+
+	<h1>Home - aula67.html</h1>
+	<p id="info"></p>
+
+	<a href="67-JavaScript-ObjetoHistory.html">Home</a>
+	<a href="p2.html">Página 2</a>
+	<a href="p3.html">Página 3</a>
+	<hr>
+	<button id="btnBack">Voltar</button>
+	<button id="btnForward">Avançar</button>
+	<button id="btnBack2">voltar 2</button>	
+
+</body>
+</html>
+
+
+
+
+
+<script type="text/javascript">	
+
+		// 
+
+		
+
+		
+/*
+
+		function inicia() {
+			var qtde=window.length;
+			var painel=document.getElementById("painel").innerHTML=qtde;
+			for (var i = 0; i < qtde; i++) {
+				window.frames[i].location="http://cfbcursos.com.br";
+			}
+			//window.frames[2].location="http://cfbcursos.com.br";
+
+		}
+
+		window.addEventListener("load",inicia);
+
+
+*/
+
+
+/*
+
+		var l,a,px,py,painel;	
+
+		
+		function info() {
+			//painel.innerHTML=l;
+			l=window.innerWidth;// outerWidth
+			a=window.innerHeight;
+			px=window.screenX;
+			py=window.screenY;
+			painel.innerHTML="L: "+l+" - A: "+a+"<br>X: " +px+ " - Y: "+py;
+		}
+
+		function rolar() {
+			window.scrollBy(500,500);
+		}
+
+		function inicia() {
+			document.getElementById("btnTam").addEventListener("click",info);
+			document.getElementById("btnPos").addEventListener("click",rolar);
+			painel=document.getElementById("painel");
+			
+		}
+
+		window.addEventListener("load",inicia);
+
+
+
+*/
+
+		
+	</script>

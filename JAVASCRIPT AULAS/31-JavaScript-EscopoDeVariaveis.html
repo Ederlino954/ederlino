@@ -1,0 +1,103 @@
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<title>CFB Cursos - Javascript</title>
+		<meta charset="utf-8">
+		
+		<script type="text/javascript">
+
+			// Escopo de Variáveis
+
+			var nomeCor="Vermelho"; // variável externa 
+			var i=0;
+
+
+			function cor() {
+				var nomeCor="Azul"; // 
+				document.write(this.nomeCor+"<br>"+nomeCor+"<br>"); // primeiro vale como vermelho e segundo com o valor de Azul 
+			}
+
+			cor();
+			for ( i = 0; i < 10; i++) {};
+
+			document.write(i+"<br>");
+
+			// document.write(nomeCor + "<br>");
+
+
+/*
+
+			var nomeCor="Vermelho"; // variável externa 
+
+			function cor() {
+				var nomeCor="Azul"; // 
+				document.write(this.nomeCor+"<br>"+nomeCor); // primeiro vale como vermelho e segundo com o valor de Azul 
+			}
+
+			cor();
+			// document.write(nomeCor + "<br>");
+
+
+*/
+
+
+/*
+
+			
+			var nomeCor="Vermelho"; // variável externa 
+
+			function cor(argument) {
+				nomeCor='Azul'; // Atribuindo valor a variável alterando o valor que foi dado inicialmente 
+				document.write(nomeCor+"<br>");
+			}
+
+			cor();
+			document.write(nomeCor + "<br>"); // aqui chama a azul por não ser uma nova variável
+
+
+*/
+
+
+/*
+
+			
+			var nomeCor="Vermelho"; // variável externa 
+
+			function cor(argument) {
+				var nomeCor='Azul'; // Atribuindo valor a variável alterando o valor que foi dado inicialmente 
+				document.write(nomeCor+"<br>");
+			}
+
+			cor();
+			document.write(nomeCor + "<br>"); // aqui chama a vermelha por causa do escopo externo dela 
+
+
+*/
+
+
+
+/*
+
+			
+
+			function cor(argument) {
+				var nomeCor='Azul'; // variável interna dentro da função 
+				document.write(nomeCor+"<br>");
+			}
+
+			cor();
+			document.write(nomeCor + "<br>"); // não foi possível chamar variável fora do escopo dela 
+
+
+*/
+
+
+		</script>
+
+	</head>
+	<body>			
+
+	</body>
+</html>

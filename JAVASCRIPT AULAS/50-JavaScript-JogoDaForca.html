@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<title>CFB Cursos - Javascript</title>
+		<meta charset="utf-8">
+		<style type="text/css">
+
+			.letra{
+				width: 30px;
+				font-size: 30px;
+				text-transform: uppercase;
+				text-align: center;
+				margin: 5px;
+				display: none;
+			}
+			.letraJ{
+				width: 30px;
+				font-size: 30px;
+				text-transform: uppercase;
+				text-align: center;
+				margin: 5px;				
+			}
+			.dvdisplay{
+				display: block;
+			}
+			#dvForca{
+				position: absolute;
+				left: 150;				
+			}
+			#cabeca{
+				position: absolute;
+				top: 0px;
+				left: 0px;
+			}
+			#corpo{
+				position: absolute;
+				top: 200px;
+				left: 105px;
+			}
+			#bracoE{
+				position: absolute; /* posicionamento das imagens que tenho que criar  */
+				top:220px;
+				left: -17px; 
+			}
+			#bracoD{
+				position: absolute;
+				top: 220px;
+				left: 105px;
+			}
+			#pernaE{
+				position: absolute;
+				top: 450px;
+				left: -66px;
+			}
+			#pernaD{
+				position: absolute;
+				top: 450px;
+				left: 105px;
+			}
+
+
+		</style>
+		<script type="text/javascript">	
+			var biblioteca=["javascript","Curso","computador","transporte","livraria","tecnologia","controle","churrasco","brasil","monitor","brinquedo","youtube","portaria","escola","carnaval","teclado","guitarra","bateria","chinelo","helicóptero"];	// banco de dados do jogo 
+			var qtde=biblioteca.length-1; // fala quantas palavras tenho dentro de biblioteca 
+			var pos=Math.round(Math.random()*qtde); // número aleatótio sendo relacionado ao indice do array biblioteca
+			var palavra=biblioteca[pos]; // recebe palavra sorteada 
+			var tam=palavra.length; // tamanho da palavra 
+			var cxLetras=[]; /// caixa de letras 
+			var acertos;  // acertos 
+			var errosMax=7;  // erros máximos 
+			var erros=0;  // número de rros 
+			var desenhos=[];  // peças do desenho 
+			var acertou=false; // se acertou 
+			var jogador=false; // se o jogo está rolando 
+			var jog;
+
+			function defineLetras(l) { // função define letras com um parâmetro 
+				var obj;
+				for (var i = 0; i < 20; i++) {
+					obj=document.getElementById("letra"+i).value="";
+					obj=document.getElementById("letra"+i).style.display="none"; // inicialmente letras isplay none 
+				}
+				for (var i = 0; i < l; i++) {	// mostra letras da palavra conforme variável tam 				
+					obj=document.getElementById("letra"+i).style.display="inline-block"; // mostra 
+				}
+			}
+
+			function jogar() {
+				//jog=document.getElementById("letraJ"); // elemento com a letra do jogado
+				jog.focus(); // foca no campo do texto 
+				if (jog.value=="") { // caso não seja digitada letra nehuma ele gera o alerta 
+					alert("Digite uma letra");
+				} else {
+					if (jogando) { // testa se o jogo está continuando 						
+						var obj;
+						var letraTmp;
+						var letra;
+						var pesq;
+						letra=jog.value; // recebe valor que foi digitado no campo do jogador 
+						jog.value=""; // zerou conteúdo do campo 
+						acertou=false;
+						pesq=palavra.match(letra):						
+						while(pesq!=null){
+							letraTmp=palavra.search(letra); // retorna a posição 
+							obj=document.getElementById("letra"+letraTmp).value=letra; // armazenando as letras nas posições 
+							palavra=palavra.replace(letra,'0'); // troca a letra pelo 0 para não encontrar a mesma letra 
+							acertos++;
+							pesq=palavra.match(letra); // pesuisa de letras 
+							acertou=true;
+						}
+						if (!acertou) { // caso não acertar 
+							document.getElementById("dvletrasdigitadas").innerHTML+=letra.toUpperCase();
+							erros++;
+							if (erros<7) {
+								desenhos[erros].style.display="block"; 
+							} else {
+								document.getElementById("cabeca").src="cabeca2.png";
+								document.getElementById("dvmsg").innerHTML="PERDEU";
+								jogando=false;
+							}
+						}
+						if (acertos == tam) { // números de acertos igual ao tamanho da palavra 
+							//document.getElementById("dvmsg").innerHTML="";
+							document.getElemen tById("dvmsg").innerHTML="GANHOU";
+							jogando=false;
+						}
+					} 
+				}
+			}			
+
+			function inicia() { // fazendo a inicialização das variáveis// ele é chamado a todo momento que se incia o jogo 
+				jogando=true; // iniciando jogo
+				jog=document.getElementById("letraJ"); // recebe a letra do jogador 
+				jog.value=""; // valor zero
+				jog.focus(); // curso vai estar apontando para letra 
+				acertos=0;
+				erros=0;
+				acertou=false;
+				document.getElementById("dvletrasdigitadas").innerHTML="Letras Digitadas: ";
+				pos=Math.round(Math.random()*qtde); // sorteio da palavra a ser gerada 
+				palavra=biblioteca[pos]; // palavra sendo recebida 
+				tam=palavra.length; // tamanhao da palavra 
+				defineLetras(tam); // chama define letras com o tamanho da palavra 
+				document.getElementById("dvmsg").innerHTML=""; // texto sem mensagem de gahou ou perdeu 
+				desenhos[1]=document.getElementById("cabeca"); // adicionar os desenhos conforme a quantidade de erro 
+				desenhos[2]=document.getElementById("corpo");
+				desenhos[3]=document.getElementById("bracoE");
+				desenhos[4]=document.getElementById("bracoD");
+				desenhos[5]=document.getElementById("pernaE");
+				desenhos[6]=document.getElementById("pernaD");
+				document.getElementById("cabeca").src="#"; // definindo cabeça inicial para carregar 
+				for (var i = 0; i < 7; i++) {
+					desenhos[i].style.display="none"; // ocultando todas as peças 
+				}
+			}
+
+			function dica() {
+				alert(palavra);
+				jog.focus();
+			}
+
+			window.addEventListener("load",inicia()); // função iniciar sendo chamada no evento do window no load 
+
+			
+		</script>		
+	</head>
+	<body>	
+
+		
+		<div id="dvmenu" class="dvdisplay">
+			<button onclick="inicia()">Nova Palavra</button>
+		</div>
+		<div id="palavra" class="dvdisplay">
+			<input type="text" id="letra0" class="letra" maxlength="1">
+			<input type="text" id="letra1" class="letra" maxlength="1">
+			<input type="text" id="letra2" class="letra" maxlength="1">
+			<input type="text" id="letra3" class="letra" maxlength="1">
+			<input type="text" id="letra4" class="letra" maxlength="1">
+			<input type="text" id="letra5" class="letra" maxlength="1">
+			<input type="text" id="letra6" class="letra" maxlength="1">
+			<input type="text" id="letra7" class="letra" maxlength="1">
+			<input type="text" id="letra8" class="letra" maxlength="1">
+			<input type="text" id="letra9" class="letra" maxlength="1">
+			<input type="text" id="letra10" class="letra" maxlength="1">
+			<input type="text" id="letra11" class="letra" maxlength="1">
+			<input type="text" id="letra12" class="letra" maxlength="1">
+			<input type="text" id="letra13" class="letra" maxlength="1">
+			<input type="text" id="letra14" class="letra" maxlength="1">
+			<input type="text" id="letra15" class="letra" maxlength="1">
+			<input type="text" id="letra16" class="letra" maxlength="1">
+			<input type="text" id="letra17" class="letra" maxlength="1">
+			<input type="text" id="letra18" class="letra" maxlength="1">
+			<input type="text" id="letra19" class="letra" maxlength="1">
+		</div>
+		<div id="dvjogsador" class="dvdisplay">
+			<div id="controlesJogador">
+				<input type="text" id="letrJ" maxlength="1">
+				<button onclick="Jogar()">Jogar</button>
+				<button onclick="dica()">Dica</button>
+				<div id="dvmsg"></div><br>
+				<div id="dvletrasdigitadas">Letras Digitadas: </div>				
+			</div>
+			<div id="dvForca">
+				<img id="cabeca" src="#"> <!-- preparar imagens para atualzar  -->
+				<img id="corpo" src="#">
+				<img id="bracoE" src="#">
+				<img id="bracoD" src="#">
+				<img id="pernaE" src="#">
+				<img id="pernaD" src="#">
+			</div>			
+		</div>
+
+	</body>
+</html>
+
+
+
+
+<script type="text/javascript">
+
+	//-----------------------------------referencia-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+/*			
+
+/*
+
+			// tabela de pesquisa 
+			// [abcd] = Pesquisa pelos caracteres "a","b","c" e "d".
+			// [^ab]  = Pesquisa por todos os caracteres menos a e b.
+			// [a-f]  = Pesquisa pelos acaracteres de "a" até "f".
+			// [^a-f] = Pesquisa por todos os caracteres, menos os de "a" até "f".
+			// [af]   = Pesquisa pelos caracteres "a" e "f", semelhante à primeira opção.
+
+			// tabela de meta caracteres  
+			//  \w  ==  Pesquisa somente por letras e numerais, ignorando espaços, traços. etc.
+			//  \W  ==  Pesquisa por caracteres diferentes de números e letras.
+			//  \d  ==  Pesquisa por numerais. 
+			//  \D  ==  Pesquisa por todos os caracteres que não são numerais. 
+			//  \s  ==  pesquisa pelos espaços.
+			//  \S  ==  Pesquisa por todos os carateres, menos os espaços
+			//  \b  ==  Pesuisa por oorrencia que iniciem ou terminem com uma letra ou um númeor, cada ocorrência que iniciar e terminar com um número ou letra conta como 2
+			//  \B  ==  Pesquisa ocorrência que não iniciem ou terminem com uma letra ou número
+			//  \O  ==  Pesquisa Procura por caracteres nulos.
+			//  \n  ==  Procura por quebra de linha.
+			//  \r  ==  Procura por caracteres "retorno de carro" ENTER.
+			//  \t  ==  Procura por caractere de tabulação TAB.
+			//  \v  ==  Procura por acaractere de tabulação vertical. 
+			//  s+  ==  Procura por palavras que contenham uma ou mais letras "s".
+
+
+			// modificadores
+
+			// i == Busca sem case-sensitive,;
+
+			// g == Diz ao método para encontrar rtodas as ocorrências da plavra e não parar na primeira encontrada, cada ocorrência é armazenada em posição do array
+
+			// m == Pesquisa normal sem armazenar em forma de array
+
+			var texto=document.getElementById("txt").innerHTML;
+
+			//var res=texto.match("Curso"); // item da pesquisa // padrão é case sensitive
+			//var res=texto.match(/de/g);
+			//var res=texto.match(/de/g);
+			//var res=texto.match(/Javascript/ig);
+			//var res=texto.match(/o/ig);
+			//var res=texto.match(/[oa]/ig);  // pesquisando por mais de uma letra.
+			//var res=texto.match(/[^oa]/ig); // excluindo da pesquisa com o simbolo ^
+			//var res=texto.match(/[a-g]/ig);  // pesquisa entre faixa de letras 
+			//var res=texto.match(/[^a-g]/ig); // excluindo a faixa de pesquisa 
+			//var res=texto.match(/[a|o|e]/ig); 
+			//var res=texto.match(/\d/ig);
+			//var res=texto.match(/\D/ig);
+			var res=texto.match(/\w/ig);
+
+			document.write(res + " : " +res.length + "<br>"); // com length é tamanho 
+
+			document.write(res[5]);
+
+*/
+
+
+				// manipulação de data 
+			/*
+			getDay();  ---- Retorna o dia da semana, domingo=0, segunda=1 ----	var diaSem=data.getDay();			
+			getDate(); ------ Retorna o dia do mês  -------  var dia=data.getDate();
+			getMonth(); ------ Retorna o mês, janeiro=0, fevereiro=1 ------- var mes=data.getMonth();
+			getFullYear();  ------- Retorna o ano com 4 dígitos, ex: 2015  -------  var ano=data.getFullYear();
+			getHours(); ----- Retorna a hora  ----- var hora=data.getHours(); -------  var hora=data.getHours();
+			getMinutes(); ------ Retorna os minutos  ------ var minutos=data.getMinutes();
+			toDateString(); ----- Retorna a data por estêncil, padrão EUA ----- var dataTexto=data.toDateString();
+			toDateString();	----- Retorna a data no formato 16/12/2015 ----- var dataPadrao=data.toLocaleDateString();	
+			toLocaleString(); ----- Retorna a data e a hora 16/12/2015 23:13:00 ----- var dataHoraTexto=data.toLocaleString();
+
+			*/
+
+
+
+
+
+
+
+
+
+
+			// exemplos realizados 
+/*
+
+			function msg() {
+					alert("CFB - Cursos");
+			}	
+
+			function cor1() {
+				var obj=document.getElementById('dv1');
+				obj.style.backgroundColor="#fff";
+			}
+
+			function cor2() {
+				var obj=document.getElementById('dv1');
+				obj.style.backgroundColor="#f00";
+			}
+
+			// Inicialização dos Eventos 
+			function addEventos() {
+				var obj=document.getElementById('dv1');
+				obj.addEventListener("click" , msg); //  addEventListener usa-se sem o on no início 
+				obj.addEventListener("mouseover" , cor1);
+				obj.addEventListener("mouseout" , cor2);
+			}
+
+			window.addEventListener("load",addEventos); // chamando o carregamento da função para compilar 
+
+
+*/
+
+
+
+
+			// Eventos 
+
+			/*
+			
+			Eventos de mouse
+
+			onclick ----- Evento disparado quando se clica em um elemento.
+			oncontextmenu ----- Evento disparado quando se clica com o botão direito do mouse sobre um elemento.
+			ondblclick ----- Evento disparado quando é aplicado um clique duplo sobre um elemento.
+			onmousedown ---- Evento disparado quando o botão do mouse é pressionado sobre um elemento.
+			onmouseenter ---- Evento disparado quando o ponteiro do mouse se move para cima de um elemento.
+			onmouseleave ---- Evento disparado quando o ponteiro do mouse se move para fora de um elemento.
+			onmousemove ---- Evento disparado quando o ponteiro do mouse se move sobre um elemento.
+			onmouseover ----- Evento disparado quando o ponteiro do mouse é movido para dentro de um elemento ou um de seus filhos.
+			onmouseout ---- Evento disparado quando o ponteiro do mouse é movido para fora de um elemento ou um de seus filhos.
+			onmouseup ---- Evento disparado quando o botão do mouse é liberado, despreciando, sobre um elemento.
+
+			Eventos de teclado 
+
+			onkeydown --- Evento disparado quando o usuário pressiona uma tecla	
+			onkeypress ---- Evento disparado quando o usuário mantém uma tecla pressionada.
+			onkeyup ---- Evento disparado quando o usuário libera uma tecla pressionada.
+
+
+			Eventos de objetos/frames/body
+
+			onabort --- Evento disparado quando o carregamento do elemento é abortado.
+			onbeforeunload ----- Evento disparado antes do documento ser descarregado/fechado.
+			onerror ---- Evento disparado quando ocorre algum erro no carregamento de arquivos externos.
+			onhashchange ----- Evento disparado quando ocorre alguma alteração da âncora da URL.
+			onload ---- Evento disparado quando um elemento é carregado.
+			onpageshow ----- Evento disparado quando uma página é mostrada.
+			onpagehide ---- Evento disparado quando uma página deixa de ser mostrada.
+			onresize ---- Evento disparado quando o elemento é redimensionado.
+			onscroll ----- Evento disparado quando a página é rolada.
+			onunload ----- Evento disparado quando a página é fechada/descarregada.	
+
+			Eventos de formulários
+
+			onblur ---- Evento disparado quando o elemento perde o foco, perde a seleção.
+			onchange ---- Evento disparado quando o conteúdo do elemento é alterado, input, keygen, select, textarea.
+			onfocus ---- Evento disparado quando o elemento recebe o foco, é selecionado.
+			onfocusin ---- Evento disparado quando o elemento está prestes a receber o foco.
+			onfocusout ---- Evento disparado quando o elemento está prestes a perder o foco.
+			oninput ---- Evento disparado quando o usuário clica para entrar ou selecionar o elemento.
+			onivalid ---- Evento disparado quando um elemento é inválido.
+			onreset ----- Evento disparado quando o botão reset é pressionado.
+			onsearch ----- Evento disparado quando é escrito algo em um campo <input type=“search”>
+			onselect ---- Evento disparado logo após a seleção de um texto <text> e <textarea>
+			onsubmit ---- Evento disparado quando o botão submit é clicado para enviar os dados do formulário.
+
+			Eventos de Drag / Arrastar
+
+			ondrag ---- Evento disparado quando um elemento é arrastado.
+			ondragend ---- Evento disparado quando um elemento deixa de ser arrastado.
+			ondragenter ---- Evento disparado quando o elemento arrastado entra no elemento alvo.
+			ondragleave ----- Evento disparado quando o elemento arrastado deixa o elemento alvo.
+			ondragover ---- Evento disparado quando o elemento arrastado está sobre o elemento alvo.
+			ondragstart ----- Evento disparado quando o elemento começa a ser arrastado.
+			ondrop ---- Evento disparado quando o elemento arrastado é solto.
+
+			Eventos de Área de transferência / clipboard
+
+			oncopy ---- Evento disparado quando o usuário copia o conteúdo de um elemento.
+			oncut ---- Evento disparado quando o usuário recorta o conteúdo de um elemento.
+			onpaste ----- Evento disparado quando o usuário cola um conteúdo em um elemento.
+
+			Eventos de impressão
+
+			onafterprint ---- Evento disparado quando a página termina de ser impressa.
+			onbeforeprint ----- Evento disparado quando a página está prestes a ser impressa.	
+
+			Eventos de mídia		
+
+			onabort ---- Evento disparado quando o carregamento de uma mídia é interrompido.
+			oncanplay ---- Evento disparado quando a página está prestes a ser impressa.
+			oncanplaythrough ---- Evento disparado quando o navegador pode começar a rodas a mídia (quando se tem cach suficiente para começar)
+			ondurationchange ------ Evento disparado quando a duração da mídia é alterada.
+			onemptied ----- Evento disparado quando algum problema acontece e o arquivo de mídia fica subitamente indisponível (quando a conexão é inesperadamente interrompida)
+			onended ----  Evento disparado quando a mídia chegou ao fim (útil para mensagens como "Obrigado por escutar")
+			onerror ----- Evento disparado quando ocorreu um erro durante o carregamento de um arquivo de mídia.
+			onloadeddata ----- Evento disparado quando os dados de mídia são carregados.
+			onloadedmetada ------ Evento disparado quando dados de meta (como tamanho e duração) são carregados
+			onloadstart ------ Evento disparado quando o navegador começa a carregar a mídia especificada
+			onpause ------ Evento disparado quando a mídia é pausada pelo usuário.
+			onplay ---- Evento disparado quando a mídia é iniciada ou não está pausada.
+			onplaying ----- Evento disparado quando a mídia está sendo tocada.
+			onprogress ----- Evento disparado quando o navegador baixando a mídia.
+			onratechange ----- Evento disparado quando a velocidade de reprodução da mídia é alterada.
+			onseeked ----- Evento disparado quando o usuário termina de mover o ponteiro de reprodução para uma nova posição da mídia.
+			onseeking ------ Evento disparado quando o usuário começa a mover o ponteiro de reprodução para uma nova posição da mídia.
+			onstalled ----- Evento disparado quando o navegador está tentando obter dados de mídia, mas os dados não estão disponíveis.
+			onsuspend ---- Evento disparado quando a reprodução da mídia é suspenso, quando o navegador não está recebendo dados da mídia.
+			ontimeupdate ----- Evento disparado quando a posição de reprodução mudar (como quando o usuário avança para um ponto diferente na mídia)
+			onvolumechange ------ Evento disparado quando o volume é alterado.
+			onwaiting ----- Evento disparado quando a mídia fez uma pausa, mas é esperado para retomar (quando a mídia faz uma pausa para o bufferrizar mais dados)
+
+			Eventos de animação
+			
+
+			animationend --- Evento disparado quando uma animação CSS é completada.
+			animationiteration ---- Evento disparado quando uma animação CSS é repetida.
+			animationstart --- Evento disparado quando uma animação CSS é iniciada.
+
+			Evento de transição
+
+			transitionend ---- Evento disparado quando uma transição CSS é completada.
+
+
+			Eventos enviados pelo servidor
+
+			onerror ---- Evento disparado quando um erro ocorre.
+			onmessage ----- Evento disparado quando uma mensagem é recebida através da fonte de eventos.
+			onopen ------ Evento disparado quando a conexão com o servidor é iniciada
+
+			Eventos diversos
+			
+			onmessage ---- Evento disparado quando uma mensagem é recebida através ou a partir de um objeto.
+			ononline ----- Evento disparado quando o browser inicia o trabalho online.
+			onoffline ----- Evento disparado quando o browser inicia o trabalho offline.
+			onpopstate ---- Evento disparado quando a janela de histórico muda.
+			onshow ---- Evento disparado quando um elemento de <menu> é mostrado.
+			onstorage ----- Evento disparado quando a área de armazenamento web é atualizada.
+			ontoggle ---- Evento disparado quando o usuário abre ou fecha um elemento de <details>
+			onwheel ----- Evento disparado quando a roda do mouse é usada.
+
+			Eventos de toque na tela
+
+			ontouchcancel ---- Evento disparado quando o toque é finalizado.
+			ontouchend ------ Evento disparado quando o dedo é retirado na tela de toque.
+			ontouchmove ----- Evento disparado quando o dedo é movido na tela de toque.
+			ontouchstart ----- Evento disparado quando o dedo toca a tela.
+
+			Event
+
+			DOMContentLoaded ----- Acionado quando o documento inicial HTML foi completamente carregado e analisado.
+
+			MouseEvent
+
+			altKey ----- Retorna se a tecla ALT foi pressionada.
+			button ----- Retorna qual botão do mouse foi pressionado.
+			buttons ----- Retorna quais botões do mouse foram pressionados.
+			clientX ---- Retorna a coordenada horizontal do mouse.
+			clientY ----- Retorna a coordenada vertical do mouse.
+			ctrlKey ---- Retorna se a tecla CTRL foi pressionada.
+			detail ---- Retorna um número que indica quantas vezes o mouse foi clicado.
+			metaKey ----- Retorna se a tecla "META" foi pressionada.
+			retaledTarget ----- Retorna o elemento relacionado com o elemento que disparou o evento do mouse.
+			screenX ----- Retorna a coordenada horizontal do ponteiro do mouse, em relação à tela.
+			screenY ----- Retorna a coordenada vertical do ponteiro do mouse, em relação à tela.
+			shiftKey ----- Retorna se a tecla SHIFT foi pressionada.
+			which ------- Retorna qual botão do mouse foi pressionado.
+
+
+			KeyboardEvent
+
+			altKey ----- Retorna se a tecla ALT foi pressionada.
+			crtlKey ----- Retorna se a tecla CTRL foi pressionada.
+			charCode ----- Retorna o código do caracteres da tecla pressionada.
+			key ---- Retorna o valor da tecla pressionada.
+			keyCode ----- Retorna o código da tecla pressionada.
+			location ----- Retorna a localização da tecla pressionada.
+			metaKey ----- Retorna se a tecla "META" foi pressionada.
+			shiftKey ----- Retorna se a tecla SHIFT foi pressionada.
+			which ----- Retorna qual botão do mouse foi pressionado.
+
+
+			HashChangeEvent
+
+			newURL ----- Retorna a URL do documento após uma alteração.
+			oldURL ----- Retorna a URL do documento antes uma alteração.
+
+
+			PageTransitionEvent
+
+			persisted ----- Retorna se a página da Web foi armazenada em cache pelo navegador.
+
+
+
+			FocusEvent 
+
+			relatedTarget----- Retorna o elemento relacionado com o elemento que disparou o evento.
+
+			
+
+			AnimaionEvent
+
+			animationName ---- Retorna o nome da animação.
+			elapsedTime ----- Retorna o tempo em segundos que uma animação está rodando.
+
+
+			TransitionEvent
+
+			propertyName ----- Retorna o nome da propriedade CSS associada com a transição.
+			elapsedTime ----- Retorna o tempo em segundos que uma transição está rodando.
+
+			WheelEvent
+			
+			deltaX ----- Retorna a quantidade de rolagem horizontal de uma roda do mouse (eixo x).
+			deltaY ----- Retorna a quantidade de rolagem vertical de uma roda do mouse (eixo y).
+			deltaZ  ----- Retorna a quantidade de deslocamento de uma roda do mouse para o eixo z.
+			deltaMode ---- Retorna um número que representa a unidade de medição para valores delta (pixels, linhas ou páginas).
+
+			*/
+			
+		</script>

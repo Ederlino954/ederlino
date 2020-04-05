@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<title>CFB Cursos - Javascript</title>
+		<meta charset="utf-8">
+
+		<script type="text/javascript">
+
+			//  getElementsByTagName('') == retorno um conjunto de elementos em forma de vetor  
+
+			
+
+		</script>
+
+	</head>
+	<body>
+<!--
+		<p>CFB cursos</p>
+		<p>Curso de JavaScript</p>
+		<p>Aula 25</p>
+		<p>www.youtube.com/cfbcursos</p>
+		<p>cfbcursos.com.br</p>
+-->
+		<h2>CFB cursos</h2>
+		<p>Curso de JavaScript</p>
+		<h2>Aula 25</h2>
+		<p>www.youtube.com/cfbcursos</p>
+		<h2>cfbcursos.com.br</h2>
+
+		<hr>
+
+		<script type="text/javascript">
+
+
+			var tags=document.getElementsByTagName('*'); // * captura todas as Tags 
+				
+			    tags[8].innerHTML="Novo texto";
+				tags[8].style.color="#f00"; // especificando indice 8 para alterar na tag 
+			
+
+/*
+
+			var tagsP=document.getElementsByTagName('*'); // * captura todas as Tags 
+
+			for (var i = 0; i < tagsP.length; i++) { // estilizando todos os elementos com for 
+				tagsP[i].style.color="#f00";
+			}
+*/
+
+/*
+			var tagsP=document.getElementsByTagName('p');
+
+			for (var i = 0; i < tagsP.length; i++) { // estilizando todos os elementos com for 
+				tagsP[i].style.color="#f00";
+			}
+*/
+			 
+
+
+/*
+			var tagsP=document.getElementsByTagName('p'); // recebendo indice 3 dos p
+
+			tagsP[3].style.color="#f00"; // Estilizando 
+*/
+
+
+/*
+
+			var tagsP=document.getElementsByTagName('p')[3]; // recebendo indice 3 dos p
+
+			document.write(tagsP.innerHTML+"<br>"); // capturando primeiro elemento 
+*/
+
+
+/*
+			
+			var tagsP=document.getElementsByTagName('p'); // recebendo Tags e armazenando na variável 
+
+			document.write(tagsP[0].innerHTML+"<br>"); // capturando primeiro elemento 
+			document.write(tagsP[2].innerHTML+"<br>"); // capturando terceiro elemento 
+*/
+
+
+		</script>
+		
+
+	</body>
+</html>

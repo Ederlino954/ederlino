@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<title>CFB Cursos - Javascript</title>
+	<meta charset="utf-8">
+	<style type="text/css">	
+	</style>
+	<script type="text/javascript">	
+
+		var minhaJanela; // escopo global 
+
+		//var minhaJanel=window.open();
+		function abreJ() {
+			//var minhaJanel=window.open("62-tmp.html","_blank");
+			//var minhaJanel=window.open("62-tmp.html","_self");
+			//var minhaJanel=window.open("62-tmp.html","cfb"); // direcionanod para o iframe 
+			minhaJanela=window.open("62-tmp.html","_blank","width=300,height=300,top=300,left=300");
+		}
+		function fechaJ() {
+			minhaJanela.close();
+		}
+		
+		
+	</script>
+</head>
+<body>	
+	
+	<button onclick="abreJ()">Abre Nova Janela</button>
+	<button onclick="fechaJ()">Fechar Janela</button>
+
+	<iframe name="cfb" src=""></iframe>
+
+</body>
+</html>

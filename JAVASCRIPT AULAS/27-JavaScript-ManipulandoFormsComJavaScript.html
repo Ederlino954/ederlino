@@ -1,0 +1,142 @@
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<title>CFB Cursos - Javascript</title>
+		<meta charset="utf-8">
+		<style type="text/css">
+			
+			label{
+				display: block;
+			}
+			input{
+				display: block;
+			}
+			input[type=submit],label{
+				margin-top: 10px;
+			}
+
+		</style>		
+	</head>
+	<body>
+		
+		<form name="curso1" id="curso1" action="#" method="post">
+			<label>Nome</label>
+			<input type="text" name="fNome" id="etste" value="Primeiro - 1">
+			<label>Senha</label>
+			<input type="password" name="fSenha" value="123">
+			<input type="submit" name="btEnviar" value="Enviar">
+<!--
+		</form>
+		<form name="curso2" id="curso2" action="#" method="post">
+			<label>Nome</label> 
+			<input type="text" name="fNome" id="etste" value="Segundo - 2">
+			<label>Senha</label>
+			<input type="password" name="fSenha" value="123">
+			<input type="submit" name="btEnviar" value="Enviar">
+
+		</form>
+-->
+
+		<hr>
+
+		<script type="text/javascript">
+
+			// manipulando formulários com JavaScript 
+
+
+/*--------------------- padronizando manipulação---------------------   */ 
+
+			document.write(document.getElementById("curso1").elements[0].value); // utilizando getElementById apontand para o fomulário 
+
+			var fm=document.forms[0];  // guardando elemento do formulário 1 indice 0 referente ao input
+			var el=fm.elements;
+
+			for (var i = 0; i < el.length-1 ; i++) {  // CONDIÇÃO DE ALTERAÇÃO DOS ELEMENTOS 
+				el[i].style.backgroundColor="#ddd";// alterando 
+				//el[i].value="CFBcursos";  // elementos cinza recebendo CFBcursos
+			}			
+
+			//document.write(fm + "<br>"); // escrevendo
+
+
+/*
+			var fm=document.forms[0];  // guardando elemento do formulário 1 indice 0 referente ao input
+			var el=fm.elements;
+
+			for (var i = 0; i < el.length-1 ; i++) {  // CONDIÇÃO DE ALTERAÇÃO DOS ELEMENTOS 
+				el[i].style.backgroundColor="#ddd";// alterando 
+				el[i].value="CFBcursos";  // elementos cinza recebendo CFBcursos
+			}			
+
+			//document.write(fm + "<br>"); // escrevendo
+
+*/
+
+/*     		
+			var fm=document.forms[0];  // guardando elemento do formulário 1 indice 0 referente ao input
+			var el=fm.elements;
+
+			el[0].style.backgroundColor="#ddd";// alterando 
+			el[0].value="CFBcursos";
+
+			document.write(fm + "<br>"); // escrevendo
+
+*/
+
+/*
+			var f=document.forms["curso1"].elements[0].value;  // guardando elemento do formulário 1 indice 0 referente ao input
+			document.write(f1 + "<br>"); // escrevendo
+*/
+
+/*
+			var fm=document.forms["curso1"].elements[0].value;  // guardando elemento do formulário 1 indice 0 referente ao input
+			document.write(fm + "<br>"); // escrevendo
+
+			var fm=document.forms["curso1"].elements[1].value;  // guardando elemento do formulário 1 indice 1 referente ao input
+			document.write(fm); // escrevendo
+*/
+
+/*			
+			var fm=document.forms["curso2"].innerHTML;  // guardando o formulário 2
+			document.write(fm); // escrevendo
+
+*/
+
+/*
+			var fm=document.forms.namedItem("curso1").innerHTML;  // guardando o formulário 1 
+			document.write(fm); // escrevendo 
+
+			var fm=document.forms.namedItem("curso1").innerHTML;  // guardando o formulário 2
+			document.write(fm); // escrevendo
+*/ 
+
+/*
+				var fm=document.forms.namedItem("curso1").id;  // guardando o id específico  
+			document.write(fm); // escrevendo
+*/
+
+/*
+			var fm=document.forms.item(0).id;  // guardando formulário de indice 0 com o id específico  
+			document.write(fm); // escrevendo 
+*/
+
+
+/*
+			var fm=document.forms[0].id;  // guardando formulário de indice 0 com o id específico  
+			document.write(fm); // escrevendo 
+*/
+
+
+/*
+			var fm=document.forms.length;  // guardando a quantidade de formulários da página  
+			document.write(fm); // escrevendo 
+*/
+
+
+
+		</script>	
+
+	</body>
+</html>

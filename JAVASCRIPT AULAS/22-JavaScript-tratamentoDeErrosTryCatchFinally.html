@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<title>CFB Cursos - Javascript</title>
+		<meta charset="utf-8">
+
+		<script type="text/javascript">
+
+			// try == recebe o programa que pode dar erro // Catch = da o tratamento desse erro // o finally sempre é executado
+
+
+			var num; // valor máximo 10
+
+			try{
+				num=prompt("Digite um valor: "); 
+				if (num>10) {
+					throw new Error("Valor inválido, Valor máximo é 10");  // gera uma nova escessão manualmente 
+				} 				
+				 
+			}catch(e){  // recebe escessão
+				console.log("ERRO: " + e.message); // gera o log do erro 
+				num=10;						
+			}finally{
+				document.write("Valor: " + num); // executa no erro e também, sem erro , no caso mostra o valor até o limite estabelecido que é 10 
+			} 
+
+/*
+
+			var num; // valor máximo 10
+
+			try{
+				num=prompt("Digite um valor: ");
+				if (num>10) {
+					throw new Error("Valor inválido, Valor dever menor ou igual a 10. ");  // gera uma nova escessão manualmente 
+				} 
+				
+				document.write("Valor: " + num); // num recebendo erro padrão do programa 
+			}catch(e){  // recebe escessão
+				document.write("Erro: " + e.message); // gerando mensagem direta 			
+			}finally{
+				document.write("<br>Fim do tratamento. "); // executa no erro e também, sem erro 
+			} 
+
+/*
+
+/*
+			try{
+				num=10/0;
+				document.write("Erro: " + num); // num recebendo erro padrão do programa 
+			}catch(e){  // recebe escessão
+				//document.write("Erro: " + e.message); // gerando mensagem direta 
+				//console.log("Mensagem de erro" + e.message); // gerando mensagem em console na area de inspeção do navegador atalho do chrome F12
+			} 
+*/
+
+
+/*
+
+			try{
+				document.writi("CFb cursos");
+			}catch(e){  // recebe escessão
+				document.write("Erro: " + e.message); // gerando mensagem direta 
+				console.log("Mensagem de erro" + e.message); // gerando mensagem em console na area de inspeção do navegador atalho do chrome F12
+			}
+*/
+
+
+		</script> 
+
+	</head>
+	<body>
+
+	</body>
+</html>

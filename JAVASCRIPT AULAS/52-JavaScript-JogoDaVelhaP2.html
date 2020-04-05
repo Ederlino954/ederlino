@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<title>CFB Cursos - Javascript</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		#dvjogo{
+			width: 160px;
+			height: 160px;
+			display: flex; /*para flexibilizar os elememntos */
+			flex-wrap: wrap; /* o que não coiber passa para baixo */
+			align-content: flex-start;
+			/*border: 1px solid #f00;*/
+		}
+		.posJogo{
+			width: 50px;
+			height: 50px;
+			margin: 0px;
+			padding: 0px;
+			cursor: pointer;
+			display: flex;
+			/*border: 1px solid #000;*/
+		}
+
+		#p1{
+			border-right: 1px solid #000;
+			border-bottom: 1px solid #000;
+		}
+		#p2{
+			border-left: 1px solid #000;
+			border-right: 1px solid #000;
+			border-bottom: 1px solid #000;
+		}
+		#p3{
+			border-left: 1px solid #000;
+			border-bottom: 1px solid #000;
+		}
+		#p4{			
+			border-top: 1px solid #000;
+			border-right: 1px solid #000;
+			border-bottom: 1px solid #000;
+		}		
+		#p5{
+			border: 1px solid #000;			
+		}		
+		#p6{
+			border-left: 1px solid #000;
+			border-top: 1px solid #000;
+			border-bottom: 1px solid #000;
+		}
+		#p7{		
+			border-right: 1px solid #000;
+			border-top: 1px solid #000;
+		}
+		#p8{
+			border-left: 1px solid #000;
+			border-right: 1px solid #000;
+			border-top: 1px solid #000;
+		}
+		#p9{
+			border-left: 1px solid #000;
+			border-top: 1px solid #000;
+		}
+
+
+	</style>
+	<script type="text/javascript">
+
+		var jogo=[];     // sendo a matriz do jogo 
+		var tabuleiro=[];  // sendo a matriz do jogo 
+		var quemJoga=0; // 0 jogar // 1 == máquina 
+		var verifica;
+		var jogando=true;
+		var nivel=1;
+		var jogadaCpu=1;
+		var quemComeca=1;
+
+		function jogar(p) {
+			if (jogando)&&(quemJoga=0) {
+				switch (p) {
+					case 1:
+						if (jogo[0][0]="") {
+							jogo[0][0]="x";
+							quemJoga=1;
+						}
+						break;
+				}
+			} 
+
+		}
+		
+		function inicia() {
+			jogando=true;
+			jogadaCpu=1;
+			jogo=[
+				["","","",],  // 0,0  0,1  0,2
+				["","","",],  // 1,0  1,1  1,2
+				["","","",]   // 2,0  2,1  2,2 
+			];
+		}
+		
+		window.addEventListener
+
+
+		
+	</script>
+</head>
+<body>
+	<div id="dvmenu">
+		<div id="dvQuemComeca"></div>
+		<button onclick="">Iniciar Jogo</button>
+	</div>
+	<div id="dvjogo">
+		<div id="p1" class="posJogo" onclick="joga(1)"></div>
+		<div id="p2" class="posJogo" onclick="joga(2)"></div>
+		<div id="p3" class="posJogo" onclick="joga(3)"></div>
+		<div id="p4" class="posJogo" onclick="joga(4)"></div>
+		<div id="p5" class="posJogo" onclick="joga(5)"></div>
+		<div id="p6" class="posJogo" onclick="joga(6)"></div>
+		<div id="p7" class="posJogo" onclick="joga(7)"></div>
+		<div id="p8" class="posJogo" onclick="joga(8)"></div>
+		<div id="p9" class="posJogo" onclick="joga(9)"></div>
+
+	</div>
+
+</body>
+</html>

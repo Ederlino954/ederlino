@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<title>CFB Cursos - Javascript</title>
+	<meta charset="utf-8">
+	<style type="text/css">			
+
+	</style>
+	<script type="text/javascript">	
+
+		/*
+
+		var p=document.createElement("p");
+		//p.textContent="CFB Cursos";
+		var t=document.createTextNode("Curso de JavaScript - CFB Cursos");	
+
+		*/
+
+		function inicia() {
+			document.getElementById("btnAdd").addEventListener("click",function () {
+				var lista=document.getElementById("ListaElementos");
+				var texto=document.getElementById("fnovo");
+				var li=document.createElement("li");
+				li.textContent=texto.value;
+				lista.appendChild(li);
+				texto.value="";
+				texto.focus();
+			})
+		}
+
+		window.addEventListener("load",inicia);
+
+
+/*
+
+		function inicia() {
+			document.getElementById("btnAdd").addEventListener("click",function () {
+				var lista=document.getElementById("ListaElementos");
+				var texto=document.getElementById("fnovo").value;
+				var li=document.createElement("li");
+				li.textContent=texto;
+				lista.appendChild(li);
+
+			})
+		}
+
+		window.addEventListener("load",inicia);
+
+
+*/
+
+
+
+
+  /*
+
+		var p=document.createElement("p");
+		//p.textContent="CFB Cursos";
+		var t=document.createTextNode("Curso de JavaScript - CFB Cursos");	
+
+		
+
+		function inicia() {
+			p.appendChild(t);
+			document.body.appendChild(p);
+		}
+
+		window.addEventListener("load",inicia);
+		
+*/
+
+
+/*
+
+		
+		var p=document.createElement("p");
+		p.textContent="CFB Cursos";	
+
+		function inicia() {
+			document.body.appendChild(p);
+		}
+
+		window.addEventListener("load",inicia);
+
+**/
+
+	</script>
+</head>
+<body>	
+
+	<input type="text" id="fnovo"><button id="btnAdd">Adicionar</button><br><br>
+	<ul id="ListaElementos">
+		
+	</ul>
+
+</body>
+</html>
+
+
+
+
+
+<script type="text/javascript">	
+
+		// 
+
+
+/*
+
+		
+		function pagina(pg) {			
+				window.location.assign("p"+pg+".html");			
+		}
+
+		function inicia() {
+			document.getElementById("btnP2").addEventListener("click",function () {
+				pagina(2);
+			});
+			document.getElementById("btnP3").addEventListener("click",function () {
+				pagina(3);
+			});
+		}
+
+		window.addEventListener("load",inicia);
+
+
+
+
+*/
+
+
+
+/**
+
+
+		function pagina(pg) {
+			if (pg==2) {
+				window.location.assign("p2.html");
+			} else if (pg==3) {
+				window.location.assign("p3.html");
+			}
+			
+		}
+
+		function inicia() {
+			document.getElementById("btnP2").addEventListener("click",function () {
+				pagina(2);
+			});
+			document.getElementById("btnP3").addEventListener("click",function () {
+				pagina(3);
+			});
+		}
+
+		window.addEventListener("load",inicia);
+
+
+
+*/
+
+
+/*
+
+		if (typeof(Storage)!="undefine") {
+
+			localStorage.setItem("canal","CFBCursos");
+			//localStorage.removeItem("canal");
+
+			//var vcanal=localStorage.getItem("canal");
+
+			var vcanal=localStorage.canal;
+
+			document.write(vcanal);
+
+		} else {
+			document.write("Semsuporte ao web Storage!");
+		}
+
+
+*/
+
+		
+
+
+
+/*
+
+		localStorage.setItem("canal","CFBCursos");
+		//localStorage.removeItem("canal");
+
+		//var vcanal=localStorage.getItem("canal");
+
+		var vcanal=localStorage.canal;
+
+		document.write(vcanal);
+
+*/
+
+
+/*
+
+		localStorage.setItem("canal","CFBCursos");
+		//localStorage.removeItem("canal");
+
+		var vcanal=localStorage.getItem("canal");
+
+		document.write(vcanal);
+
+
+
+*/
+
+
+
+/*
+
+		var aux=location.hash;		
+		var dados=aux.split("#");
+		var v1=dados[1];
+		var v2=dados[2];
+		//document.write(dados[2]);
+		document.write(v1);
+		document.write("<br>");
+		var h=location.href;
+		document.write(h);
+		document.write("<br>");
+		var o=location.origin; // Potocolo , hostname , porta 
+		document.write(o);
+		document.write("<br>");
+		var p=location.port; // Porta de Acesso 
+		document.write(p);
+		document.write("<br>");
+		var pr=location.protocol; // Protocolo 
+		document.write(pr);
+		document.write("<br>");
+		
+
+
+
+		aux=location.search;		
+		dados=aux.split("?");
+		v1=dados[1];			
+		document.write(v1);
+
+		document.write("<hr>");
+
+
+*/
+
+
+
+/*
+
+		var aux=location.hash;		
+		var dados=aux.split("#");
+		var v1=dados[1];
+		var v2=dados[2];
+		//document.write(dados[2]);
+		document.write(v1);
+		document.write("<br>");
+		var h=location.href;
+		document.write(h);
+		document.write("<hr>");
+		var o=location.origin; // Potocolo , hostname , porta 
+		document.write(o);
+		document.write("<hr>");
+		var p=location.port; // Porta de Acesso 
+		document.write(p);
+		document.write("<hr>");
+		var pr=location.protocol; // Protocolo 
+		document.write(pr);
+		document.write("<hr>");
+
+
+*/
+
+
+/*
+
+		var aux=location.hash;		
+		var dados=aux.split("#");
+		var v1=dados[1];
+		var v2=dados[2];
+		//document.write(dados[2]);
+		document.write(v1);
+		document.write("<br>");
+		var h=location.href;
+		document.write(h);
+		document.write("<hr>");
+		var o=location.origin; // Potocolo , hostname , porta 
+		document.write(o);
+		document.write("<hr>");
+		var p=location.pathname; // caminho 
+		document.write(p);
+		document.write("<hr>");
+
+*/
+
+
+
+/*
+
+		var aux=location.hash;		
+		var dados=aux.split("#");
+		var v1=dados[1];
+		var v2=dados[2];
+		//document.write(dados[2]);
+		document.write(v1);
+		document.write("<br>");
+		var h=location.href="http://www.youtube.com/cfbcursos";
+		document.write(h);
+		document.write("<hr>");
+
+
+*/
+
+
+/*
+
+		var aux=location.hash;		
+		var dados=aux.split("#");
+		var v1=dados[1];
+		var v2=dados[2];
+		//document.write(dados[2]);
+		document.write(v1);
+		document.write("<br>");
+		var h=location.href;
+		document.write(h);
+		document.write("<hr>");
+
+*/
+
+/*
+
+		var aux=location.hash;		
+		var dados=aux.split("#");
+		var v1=dados[1];
+		var v2=dados[2];
+		//document.write(dados[2]);
+		document.write(v1);
+		document.write("<br>");
+		var h=location.hostname;
+		document.write(h);
+		document.write("<hr>");
+
+*/
+
+
+/*
+
+
+		var aux=location.hash;		
+		var dados=aux.split("#");
+		var v1=dados[1];
+		var v2=dados[2];
+		//document.write(dados[2]);
+		document.write(v1);
+
+		document.write("<hr>");
+
+
+*/
+
+		
+
+		
+/*
+
+		function inicia() {
+			var qtde=window.length;
+			var painel=document.getElementById("painel").innerHTML=qtde;
+			for (var i = 0; i < qtde; i++) {
+				window.frames[i].location="http://cfbcursos.com.br";
+			}
+			//window.frames[2].location="http://cfbcursos.com.br";
+
+		}
+
+		window.addEventListener("load",inicia);
+
+
+*/
+
+
+/*
+
+		var l,a,px,py,painel;	
+
+		
+		function info() {
+			//painel.innerHTML=l;
+			l=window.innerWidth;// outerWidth
+			a=window.innerHeight;
+			px=window.screenX;
+			py=window.screenY;
+			painel.innerHTML="L: "+l+" - A: "+a+"<br>X: " +px+ " - Y: "+py;
+		}
+
+		function rolar() {
+			window.scrollBy(500,500);
+		}
+
+		function inicia() {
+			document.getElementById("btnTam").addEventListener("click",info);
+			document.getElementById("btnPos").addEventListener("click",rolar);
+			painel=document.getElementById("painel");
+			
+		}
+
+		window.addEventListener("load",inicia);
+
+
+
+*/
+
+		
+	</script>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<title>CFB Cursos - Javascript</title>
+		<meta charset="utf-8">
+		<style type="text/css">
+			#dv1{
+				width: 100px;
+				height: 100px;
+				border: 1px solid #000;
+				background-color: #fff;				
+			}
+
+		</style>
+		
+		<script type="text/javascript">		
+
+			// setTimeout == chama uma vez a operação //  e setInterval == chama em intervalos de tempo 
+
+			// função gerando cor aleatória 
+			var tmp; // intervalo está sendo atribuido a variável abaixo no function 
+
+			function mudaCor() {
+				var obj=document.getElementById("dv1");
+				var r=Math.floor(Math.random()*255);
+				var g=Math.floor(Math.random()*255);
+				var b=Math.floor(Math.random()*255);
+				obj.style.backgroundColor="rgb("+r+","+g+","+b+")";
+			}	
+
+			//var tmp=setTimeout(mudaCor,3000);	// trabalha com milisegundos 1000 = 1 segundo, altera 1 vez 
+
+			function iniciar() {
+				tmp=setInterval(mudaCor,1000); // alterando conforme o temo demonstra
+			}
+
+			function parar() {
+				clearInterval(tmp);
+			}
+
+			
+			function addEventos() {
+				document.getElementById("bt1").addEventListener("click",iniciar);
+				document.getElementById("bt2").addEventListener("click",parar);
+			}
+
+			window.addEventListener("load",addEventos);
+
+
+
+
+
+/*
+
+			// função gerando cor aleatória 
+			function mudaCor() {
+				var obj=document.getElementById("dv1");
+				var r=Math.floor(Math.random()*255);
+				var g=Math.floor(Math.random()*255);
+				var b=Math.floor(Math.random()*255);
+				obj.style.backgroundColor="rgb("+r+","+g+","+b+")";
+			}	
+
+			//var tmp=setTimeout(mudaCor,3000);	// trabalha com milisegundos 1000 = 1 segundo, altera 1 vez 
+			var tmp=setInterval(mudaCor,1000); // alterando conforme o temo demonstra
+
+
+
+*/
+			
+
+/*
+
+				function mudaCor() {
+				var obj=document.getElementById("dv1");
+				var r=Math.floor(Math.random()*255);
+				var g=Math.floor(Math.random()*255);
+				var b=Math.floor(Math.random()*255);
+				obj.style.backgroundColor="rgb("+r+","+g+","+b+")";
+			}	
+
+				
+
+			// window.addEventListener("load",mudaCor);// não funcionou 
+
+
+
+*/
+
+		
+		
+		</script>
+
+	</head>
+	<body>	
+
+		<div id="dv1"></div>
+		<br> 
+		<button id="bt1">Iniciar</button>
+		<button id="bt2">Parar</button>
+
+	</body>
+</html>

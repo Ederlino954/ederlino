@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<title>CFB Cursos - Javascript</title>
+		<meta charset="utf-8">
+
+		<script type="text/javascript">
+
+			// WHILE usado quando não se sabe ao certo a quantidade de execução do bloco 
+
+			var num;
+
+			num=0;
+			while(num<10){
+				document.write("CFB cursos <br>");
+				num++;
+			}
+
+			document.write("<hr>");
+
+			num=10;
+			while(num--){
+				document.write("CFB cursos <br>");
+			}
+
+			document.write("<hr>");
+
+			num=true;
+			cont=0;
+			while(num){
+				document.write("CFB cursos <br>");
+				cont++;
+				if (cont>9) {
+					num=false;
+				} 
+			}	
+
+			document.write("<hr>");	
+
+
+/*
+			var num,cont;
+
+			num=100;
+			cont=0;
+
+			 while (num--) { //  num servindo de controle do while 
+				document.write(cont+"<br>"); // cont sendo imprimindo contando 
+				cont++;				
+			}
+*/
+
+/*
+
+			num=10;   // maneira válida de usar while caso necessite 
+			 while (num--) { 
+				document.write(num+"<br>");				
+			}
+
+*/
+
+
+
+
+
+
+
+
+/*
+
+			var num;
+
+			for (num=0; num<10 ; num++ ) {  // em vetor matri utilze o for 
+				document.write(num+"<br>"); // comparação imprimindo os mesmos valores  
+			}
+
+			document.write("<hr>");
+
+			num=0;  // while quando não tem certeza do número de execução 
+			 while (num<10) { // inicialização fora do while e condição de parada dentro do while 
+				document.write(num+"<br>"); // executou dez iterações 
+				num++;
+			}
+*/
+
+
+		</script> 
+
+	</head>
+	<body>
+
+	</body>
+</html>

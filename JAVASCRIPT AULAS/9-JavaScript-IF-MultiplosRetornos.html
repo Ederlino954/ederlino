@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<title>CFB Cursos - Javascript</title>
+		<meta charset="utf-8">
+
+		<script type="text/javascript">		
+
+			// IF - com multíplos retornos 
+			// IF é indicado quando há varias faixas em um mesmo retorno 
+
+			var nota = 100;// Aprovado Nota >= 60 // recuperação >= 40 < 60 // reprovado > 40 // Aprovado com Louvor > 95
+			var res;
+			// res = null;
+
+			if (nota >= 95) {
+				res="Aprovado com louvor";
+			}else if (nota >= 60) {
+					res="Aprovado";
+				}
+				//else if ((nota >= 40)&&(nota<60)) {
+					//res="Recuperação";
+				else if (nota >= 40) { // substituindo anterior 
+				res="Recuperação";
+			} else {
+				res="Reprovado";				
+			}	
+
+			document.write(res);
+
+
+			
+			
+		</script> 
+
+	</head>
+	<body>
+
+	</body>
+</html>

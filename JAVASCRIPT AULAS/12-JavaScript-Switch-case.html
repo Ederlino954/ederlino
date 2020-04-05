@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<title>CFB Cursos - Javascript</title>
+		<meta charset="utf-8">
+
+		<script type="text/javascript">		
+
+			// -- esolhendo comforme opções switch é utilizando quando se sabe o valor da váriável// do contrário usa-se o se 
+
+			var pos,msg,pontos; // declarando variáveis 
+			
+			pontos = 100;
+
+			if (pontos >= 1000) {
+				pos = 1;
+			} else if (pontos >= 800) {
+				pos = 2;
+			} else if (pontos >= 600) {
+				pos = 3;
+			} else {
+				pos = 0;
+			}
+			
+
+			switch(pos){
+				case 1: 
+					msg="Primeiro Lugar<br>Medalha de Ouro";
+					break;
+				case 2: 
+					msg="Segundo Lugar<br>Medalha de Prata";
+					break;
+				case 3: 
+					msg="Terceiro Lugar<br>Medalha de Bronze";
+					break;
+				default : 
+					msg="Não foi ao pódio<br>Não obteve medalha";					
+			}
+
+			switch(pos){
+				case 1: 	// indo para caso 3				
+				case 2: 	// indo para caso 3				
+				case 3: 
+					msg+="<br>Subiu ao pódio"; // concatenando 
+					break;
+				default : 
+					msg+="<br>Não obteve colocação"; // concatenando 					
+			}
+
+
+
+			document.write(msg);
+
+
+			
+		</script> 
+
+	</head>
+	<body>
+
+	</body>
+</html>

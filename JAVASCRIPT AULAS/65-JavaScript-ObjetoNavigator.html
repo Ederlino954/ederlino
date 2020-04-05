@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<title>CFB Cursos - Javascript</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+
+		#painel{
+			width: 400px;
+			height: 500px;
+			border: 1px solid #000;
+			border-radius: 10px;
+			padding: 10px;
+		}
+	
+	</style>
+	<script type="text/javascript">	
+
+		// 	Objeto Navigator
+
+		var painel;
+
+		function localizar(pos) {
+			var c=pos.coords;
+			painel.innerHTML+="Loc: Lat: " + c.latitude + " - lon: " + c.longitude + "<hr>";
+		}
+
+		function verifica() {
+			painel=document.getElementById("painel"); 
+			painel.innerHTML="Nome do Browser: " + navigator.appName + "<hr>"; 
+			painel.innerHTML+="Versão do Browser: " + navigator.appVersion + "<hr>"; 
+			painel.innerHTML+="Cookies: " + navigator.cookieEnable + "<hr>"; 
+			navigator.geolocation.getCurrentPosition(localizar); 
+			painel.innerHTML+="Idioma: " + navigator.language + "<hr>"; 
+			painel.innerHTML+="Online: " + navigator.onLine + "<hr>"; 
+			painel.innerHTML+="S.O.: " + navigator.platform + "<hr>"; 
+			painel.innerHTML+="Engine: " + navigator.product + "<hr>";
+			painel.innerHTML+="Agente: " + navigator.userAgent + "<hr>";  
+			//painel.innerHTML+="Localização: " + navigator.geolocation.getCurrentPosition(localizar) + "<hr>";
+		}
+
+		window.addEventListener("load",verifica);
+		
+	</script>
+</head>
+<body>	
+
+	<div id="painel"></div>
+
+</body>
+</html>
+
+
+
+
+
+<script type="text/javascript">	
+
+		// 
+
+		
+
+		
+/*
+
+		function inicia() {
+			var qtde=window.length;
+			var painel=document.getElementById("painel").innerHTML=qtde;
+			for (var i = 0; i < qtde; i++) {
+				window.frames[i].location="http://cfbcursos.com.br";
+			}
+			//window.frames[2].location="http://cfbcursos.com.br";
+
+		}
+
+		window.addEventListener("load",inicia);
+
+
+*/
+
+
+/*
+
+		var l,a,px,py,painel;	
+
+		
+		function info() {
+			//painel.innerHTML=l;
+			l=window.innerWidth;// outerWidth
+			a=window.innerHeight;
+			px=window.screenX;
+			py=window.screenY;
+			painel.innerHTML="L: "+l+" - A: "+a+"<br>X: " +px+ " - Y: "+py;
+		}
+
+		function rolar() {
+			window.scrollBy(500,500);
+		}
+
+		function inicia() {
+			document.getElementById("btnTam").addEventListener("click",info);
+			document.getElementById("btnPos").addEventListener("click",rolar);
+			painel=document.getElementById("painel");
+			
+		}
+
+		window.addEventListener("load",inicia);
+
+
+
+*/
+
+		
+	</script>

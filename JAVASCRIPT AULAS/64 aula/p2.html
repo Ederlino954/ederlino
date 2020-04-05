@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<title>CFB Cursos - Javascript</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		body{
+			background-color: #fff;
+		}
+		
+	</style>
+	<script type="text/javascript">	
+
+		// funciona no firefox no chrome não 
+
+		function mudaCor(cor) {
+			parent.document.body.style.backgroundColor=cor;
+		}
+
+	</script>
+</head>
+<body>	
+
+	<button onclick="mudaCor('#f00')">Vermelho</button>
+	<button onclick="mudaCor('#0f0')">Verde</button>
+	<button onclick="mudaCor('#00f')">Azul</button>
+
+</body>
+</html>
