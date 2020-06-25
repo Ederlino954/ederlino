@@ -1,0 +1,18 @@
+.container{    
+    background-color: #ccc;
+    height: 200px;
+    display: flex;
+    flex-direction: row;/* define a direçaõ dos itens linhas  */
+
+    flex-wrap: nowrap;  /* com quebra de linhas tamanho fixo  */
+
+    flex-flow: row wrap-reverse;
+}
+
+.item{
+    background-color: #333;
+    columns: #fff;
+    padding: 20px;
+    margin: 5px;
+    width: 40%;
+}
