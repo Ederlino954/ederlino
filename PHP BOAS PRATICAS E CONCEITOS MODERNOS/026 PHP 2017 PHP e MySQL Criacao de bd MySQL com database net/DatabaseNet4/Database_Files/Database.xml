@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DatabaseNET>
+  <License LicenseCode="" />
+  <Settings ResultsFont="Segoe UI" ResultsFontSize="9" DefaultFont="Segoe UI" DefaultFontSize="9" Language="english.xml" CheckDate="7" ExecCount="0" LastAccessed="8" Maximize="False" Left="-1316" Top="111" Width="1100" Height="750" pnlControlLeftWidth="255" ToolStrip1Left="3" ToolStrip1Top="0" ToolStrip2Left="221" ToolStrip2Top="0" ToolStrip3Left="770" ToolStrip3Top="0" ToolStrip4Left="945" ToolStrip4Top="0" CodeDir="Database_Files" CheckedVersion="30.2.7428.1">
+    <Additional2FB DatabaseEngine="Default">
+    </Additional2FB>
+    <Additional2OLEDB>
+    </Additional2OLEDB>
+    <Additional2SQLCE>
+    </Additional2SQLCE>
+    <Additional2SQLITE>
+    </Additional2SQLITE>
+    <Additional2VISTADB>
+    </Additional2VISTADB>
+  </Settings>
+  <ConnectionProfileList2>
+    <item name="MeuServidorMySQL" selected="0" DBType="MySQL" v="2" remember="False" runas="False">
+      <UseTrusted>False</UseTrusted>
+      <UserName>root</UserName>
+      <Password>
+      </Password>
+      <ServerName>localhost</ServerName>
+      <Database>
+      </Database>
+      <Port>3306</Port>
+      <ConnectionString>XLZXTRqpF7VEmRxFk30aHDtKUHae3LHY2BwvHeT4SOxD6aF/ZXz7xzYmjgImTPb42YZmf+0kAwzDWbdcz5hv6QdvXpgLSrWWcYj/tk8IqB1954imA4ScyjUrf3ypsio+zvfoLPlCZBmEmxIhynLS0aGmicYIDEU+LLi2BxXB8riA/SoRq54eUMIKUDrvhDs/xXg8rpehFnvGQyiQiJyoLWmswCKlNsACy9eiT30DH5/bpa4jnRaWRTrSyjytKXi13GQ4Iu2E6cKzE8KEdkMMwUyy8DCSYFnD4N/SRkuHLe79t2zXzp90CKlyFIefIhQXjZkqv7RKC/0UnWCqyVNezbrJ3xfcUySvIpPEQtzNhyrRnLEq3lOPkCyRFW1XRjbO</ConnectionString>
+      <F_Tables Type="1">
+      </F_Tables>
+      <F_Views Type="1">
+      </F_Views>
+      <F_Procs Type="1">
+      </F_Procs>
+      <F_Funcs Type="1">
+      </F_Funcs>
+      <F_Seqs Type="1">
+      </F_Seqs>
+      <F_Packages Type="1">
+      </F_Packages>
+      <F_Macros Type="1">
+      </F_Macros>
+      <Scripts>
+      </Scripts>
+      <Schemas>
+      </Schemas>
+    </item>
+  </ConnectionProfileList2>
+  <mru type="MySQL" value="MeuServidorMySQL" v="2" l="0" z="mysql\TABLES (30)\time_zone_name|2|mysql" e="" a="" d="08/05/2020" b="">
+  </mru>
+</DatabaseNET>
